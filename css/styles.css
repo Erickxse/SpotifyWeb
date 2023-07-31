@@ -1,0 +1,79 @@
+/* styles.css */
+body {
+    /*background-color: #25363e; /* Fondo azul */
+    background-image: url("../pictures/RingBoxGround.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column; /* Cambio a flex-direction: column */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Asegura que no haya márgenes en el body */
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+header {
+    text-align: center;
+    margin-top: 70px; /* Ajusta el valor para mover el texto hacia abajo */
+}
+
+/* Utiliza la fuente "Anton" para los títulos */
+h1, h2, h3 {
+    font-family: "Anton", sans-serif;
+    font-size: 50px; /* Ajusta el tamaño de fuente según tus preferencias */
+    color: #fff; /* Cambia el color del texto a blanco */
+    margin: 10px 0; /* Ajusta el margen entre títulos según tus preferencias */
+}
+.main-text {
+    font-size: 20px;
+    color: #fff; /* Cambia el color del texto a blanco */
+}
+main {
+    text-align: center;
+    margin-bottom: 60px; /* Ajusta el valor según el tamaño del pie de página */
+}
+
+/* Nueva clase para centrar contenido */
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    padding: 20px 30px;
+    font-size: 16px;
+    background-color: #003f54;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilizar el GIF */
+#gif {
+    width: 500px; /* Ajusta el tamaño del GIF según tus preferencias */
+}
+
+/* Estilos para el pie de página */
+
+footer {
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    text-align: center; /* Alinear el contenido del pie de página al centro */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-text {
+    color: darkslategray; /* Cambia el color de los textos del pie de página */
+}

@@ -1,0 +1,64 @@
+/* login.css */
+
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Cambio a flex-direction: column */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Asegura que no haya márgenes en el body */
+    padding: 0;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+    body::before {
+        content: "";
+        background-image: url("../pictures/RingBoxGround.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
+        z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
+    }
+
+.authorization-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .authorization-form h2 {
+        margin-bottom: 10px;
+    }
+
+    .authorization-form p {
+        margin-bottom: 20px;
+    }
+
+    .authorization-form input {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .authorization-form button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+

@@ -1,0 +1,25 @@
+<!-- otra_pagina.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Autorizar - Spotify </title>
+    <link rel="icon" href="pictures/SpotifyFavIcon.ico" type="image/x-icon"> <!-- Reemplaza "ruta_del_icono.ico" con la ruta de tu ícono -->
+    <link rel="stylesheet" href="css/login.css"> <!-- Vincula tu archivo de estilos CSS -->
+    <!-- Agrega tus estilos CSS si es necesario -->
+</head>
+<body>
+    <div class = "authorization-form">
+        <h2> Autorizar Spotify </h2>
+        <p>Ingresa a tu cuenta de Spotify para autorizar el acceso:</p>
+        <!-- Agregar el formulario de autorización -->
+        <form action="ruta_de_tu_servidor_de_autorizacion" method="POST">
+            <!-- Agregar campos del formulario, como usuario, contraseña, etc. -->
+            <input type="text" name="usuario" placeholder="Usuario de Spotify">
+            <input type="password" name="contrasena" placeholder="Contraseña de Spotify">
+            <button type="submit">Autorizar</button>
+        </form>
+    </div>
+</body>
+</html>
