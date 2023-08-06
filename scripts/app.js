@@ -35,3 +35,5 @@ const APIController = (function () {
         getPlaylists,
     };
 })();
+// Exportar el módulo APIController
+export default APIController;
