@@ -36,4 +36,4 @@ const APIController = (function () {
     };
 })();
 // Exportar el módulo APIController
-export default APIController;
+window.APIController = APIController;
