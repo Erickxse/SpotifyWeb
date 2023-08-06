@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const code = urlParams.get("code");
 
     // Token de acceso de Spotify (debes obtenerlo mediante el proceso de autorización)
-    const accessToken = "AQAgbzxX-d-vlZd3ObQT1KdYwtSFtFYnkYaNfrcrdj9Z5L09ZkrPHFHiBykhRNdX5M--h8dha62fr_wZwIYtsKEwjifZbhqVj8OKVUtCvTr9_rUGhnm8HUF8lItUjjgQGWGrqmTaFMV2AupPImTPhv2brsMq4M-Hh-1CWJhXMS5EyQ4takXskf-U3MsuxS20_MNmDu4o8w3pKRY3pdvbW4JnKPekOpEy09NQ29duMNpDYrUmWuyMWPKyN5mslUI-qJQmIpEWsEhxW8-E0wxvp4QjpL_uVkI";
+    const accessToken = "AQDVwX_OszbiDPVqGoCcsUW-L_rX0ZBhNPb80OZtudrFq_QiMi8z1SwOTAGUk-Tw-nobmbhE8gX0u5gdUkgsOWKz6DbR_6Hwr7MIPAH1rR2Rc9KKIoBn2g6NIjWPc-5pQAXl9Qleiq9B-xWNk7jmChOG8jJVsAH6uy-AlI9Qs4QOEpxaskK68lld2xA0fhppAkd77-buDN-l7CsjJT77xiueFGU_LDM_UHjwoZrIYPIQkaSBCkdqoGnrkb4SIia4xjzVOAhTc1lBeZb3hr9QY0IBkAlRZRE";
 
 
     // Configuración de la solicitud a la API de Spotify
