@@ -15,7 +15,9 @@ body {
 
 header {
     text-align: center;
-    margin-top: 50px; /* Ajusta el valor para mover el texto hacia abajo */
+    margin-top: 30px; /* Ajusta el valor para mover el texto hacia abajo */
+    color: white;
+    opacity: 0.9;
 }
 
 .white-box {
@@ -27,24 +29,78 @@ header {
     margin: auto; /* Centrar el recuadro horizontalmente */
     display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
     flex-direction: column; /* Alinear el contenido en columnas */
-    justify-content: center; /* Centrar verticalmente el contenido */
-    align-items: center; /* Centrar horizontalmente el contenido */
+    opacity: 0.9;
+    position: relative; /* Añadimos position: relative para que black-box sea relativo a white-box */
+    overflow: hidden; /* Añadimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
+}
+
+.black-box {
+    background-color: black;
+    color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
+    padding: 20px; /* Margen interior para separar el contenido del recuadro */
+    width: 100%; /* Ajustar el ancho del recuadro al 100% del ancho del white-box */
+    height: 10vh; /* Altura del recuadro (ajústala según tus necesidades) */
+    position: absolute; /* Añadimos position: absolute para posicionar black-box dentro de white-box */
+    top: 0; /* Posicionamos black-box desde el borde superior */
+    left: 0; /* Posicionamos black-box desde el borde izquierdo */
+    display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
+    justify-content: center; /* Alinear el contenido en el centro verticalmente */
+    align-items: center; /* Centrar el contenido horizontalmente */
+    z-index: 1; /* Añadimos z-index para que black-box esté por encima de body::before */
     opacity: 0.9;
 }
 
-    body::before {
-        content: "";
-        background-image: url("../pictures/RingBoxGround.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
-        z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
-    }
+.black-box h1 {
+    margin: 0; /* Eliminar márgenes del título */
+}
 
+body::before {
+    content: "";
+    background-image: url("../pictures/RingBoxGround.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
+    z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
+}
 
+.gif-left,
+.gif-right {
+    width: 70px; /* Ajusta el ancho de los gifs según tus necesidades */
+    height: 70px; /* Ajusta la altura de los gifs según tus necesidades */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.gif-left {
+    left: 20px; /* Ajusta la posición izquierda del primer gif */
+}
+
+.gif-right {
+    right: 60px; /* Ajusta la posición derecha del segundo gif */
+}
+
+footer {
+    /*background-color: white;*/
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    text-align: center; /* Alinear el contenido del pie de página al centro */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-text {
+    color: darkslategray; /* Cambia el color de los textos del pie de página */
+}s
