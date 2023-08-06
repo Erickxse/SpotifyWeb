@@ -1,10 +1,11 @@
+require('dotenv').config();
 // Esperar a que el documento esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
     // URL de la API de Spotify para obtener las playlists del usuario
     const apiURL = "https://api.spotify.com/v1/me/playlists";
 
     // Token de acceso de Spotify (debes obtenerlo mediante el proceso de autorización)
-    const accessToken = "AQCdSMgowlw-IW1CORtB4DQwt83vrt_ZVbOWQksoGPDUYqXgLI_ZpMhjqmkql3ZmebRfoORhtiJxjuhK2wysl9Mqi5Hfmz4mOGoCYTlF1jH-uojz5O0SCesdBBOztHI_ISXhg7lbhwbMvEFyGBA1bOS0Ve8C-fTyxqhGMItBXBobp2buO1pdHzA4Tf0Q8X_0wrml8GquRu1Gfsa2guJFCCQ17vJsCD-ftRjaW4muOXlo0Hs6L_Nk6gZxngs0CXE9_YwjobuFofpKlKEgG4I2KKaw0J_99RAwaVv-QUzpfSP1";
+    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
 
     // Configuración de la solicitud a la API de Spotify
     const headers = {
