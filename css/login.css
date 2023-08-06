@@ -13,6 +13,13 @@ body {
     overflow-x: hidden; /* Evitar scroll horizontal */
 }
 
+.white-box {
+    background-color: white;
+    padding: 20px; /* Margen interior para separar el contenido del recuadro */
+    max-width: 800px; /* Ancho máximo del recuadro */
+    margin: 0 auto; /* Centrar el recuadro horizontalmente */
+}
+
     body::before {
         content: "";
         background-image: url("../pictures/RingBoxGround.jpg");
@@ -28,37 +35,4 @@ body {
         z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
     }
 
-.authorization-form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-    .authorization-form h2 {
-        margin-bottom: 10px;
-    }
-
-    .authorization-form p {
-        margin-bottom: 20px;
-    }
-
-    .authorization-form input {
-        display: block;
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .authorization-form button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
 
