@@ -13,6 +13,11 @@ body {
     overflow-x: hidden; /* Evitar scroll horizontal */
 }
 
+header {
+    text-align: center;
+    margin-top: 70px; /* Ajusta el valor para mover el texto hacia abajo */
+}
+
 .white-box {
     background-color: white;
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
