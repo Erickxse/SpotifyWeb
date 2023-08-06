@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Obtener el token de la URL
     const urlParams = new URLSearchParams(window.location.search);
-    const accessToken = urlParams.get("code");
+    const accessToken = urlParams.get("code"); // Cambiar "code" a "token" si corresponde
 
     // Verificar si se proporcionó un token en la URL
     if (accessToken) {
         // Mostrar el token en el elemento HTML correspondiente
-        const tokenElement = document.getElementById("code");
+        const tokenElement = document.getElementById("code"); // Cambiar "code" al ID correcto del elemento HTML
         tokenElement.textContent = accessToken;
 
         // Obtener las playlists del usuario utilizando el módulo APIController
