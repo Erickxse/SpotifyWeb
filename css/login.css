@@ -16,8 +16,14 @@ body {
 .white-box {
     background-color: white;
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
-    max-width: 800px; /* Ancho máximo del recuadro */
-    margin: 0 auto; /* Centrar el recuadro horizontalmente */
+    max-width: 900px; /* Ancho máximo del recuadro */
+    width: 90%; /* Ajustar el ancho del recuadro al 90% del ancho de la pantalla */
+    height: 90vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
+    margin: auto; /* Centrar el recuadro horizontalmente */
+    display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
+    flex-direction: column; /* Alinear el contenido en columnas */
+    justify-content: center; /* Centrar verticalmente el contenido */
+    align-items: center; /* Centrar horizontalmente el contenido */
 }
 
     body::before {
