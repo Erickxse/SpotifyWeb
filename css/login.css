@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0; /* Asegura que no haya márgenes en el body */
+    margin: 0; /* Asegura que no haya mï¿½rgenes en el body */
     padding: 0;
     overflow-x: hidden; /* Evitar scroll horizontal */
 }
@@ -23,15 +23,15 @@ header {
 .white-box {
     background-color: white;
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
-    max-width: 900px; /* Ancho máximo del recuadro */
+    max-width: 900px; /* Ancho mï¿½ximo del recuadro */
     width: 95%; /* Ajustar el ancho del recuadro al 90% del ancho de la pantalla */
     height: 100vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
     margin: auto; /* Centrar el recuadro horizontalmente */
     display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
     flex-direction: column; /* Alinear el contenido en columnas */
     opacity: 0.9;
-    position: relative; /* Añadimos position: relative para que black-box sea relativo a white-box */
-    overflow: hidden; /* Añadimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
+    position: relative; /* Aï¿½adimos position: relative para que black-box sea relativo a white-box */
+    overflow: hidden; /* Aï¿½adimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
 }
 
 .black-box {
@@ -39,19 +39,19 @@ header {
     color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
     width: 100%; /* Ajustar el ancho del recuadro al 100% del ancho del white-box */
-    height: 10vh; /* Altura del recuadro (ajústala según tus necesidades) */
-    position: absolute; /* Añadimos position: absolute para posicionar black-box dentro de white-box */
+    height: 10vh; /* Altura del recuadro (ajï¿½stala segï¿½n tus necesidades) */
+    position: absolute; /* Aï¿½adimos position: absolute para posicionar black-box dentro de white-box */
     top: 0; /* Posicionamos black-box desde el borde superior */
     left: 0; /* Posicionamos black-box desde el borde izquierdo */
     display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
     justify-content: center; /* Alinear el contenido en el centro verticalmente */
     align-items: center; /* Centrar el contenido horizontalmente */
-    z-index: 1; /* Añadimos z-index para que black-box esté por encima de body::before */
+    z-index: 1; /* Aï¿½adimos z-index para que black-box estï¿½ por encima de body::before */
     opacity: 0.9;
 }
 
 .black-box h1 {
-    margin: 0; /* Eliminar márgenes del título */
+    margin: 0; /* Eliminar mï¿½rgenes del tï¿½tulo */
 }
 
 body::before {
@@ -66,24 +66,24 @@ body::before {
     width: 100%;
     height: 100%;
     opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
-    z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
+    z-index: -1; /* Colocar el pseudo-elemento detrï¿½s del contenido */
 }
 
 .gif-left,
 .gif-right {
-    width: 70px; /* Ajusta el ancho de los gifs según tus necesidades */
-    height: 70px; /* Ajusta la altura de los gifs según tus necesidades */
+    width: 70px; /* Ajusta el ancho de los gifs segï¿½n tus necesidades */
+    height: 70px; /* Ajusta la altura de los gifs segï¿½n tus necesidades */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .gif-left {
-    left: 20px; /* Ajusta la posición izquierda del primer gif */
+    left: 20px; /* Ajusta la posiciï¿½n izquierda del primer gif */
 }
 
 .gif-right {
-    right: 60px; /* Ajusta la posición derecha del segundo gif */
+    right: 60px; /* Ajusta la posiciï¿½n derecha del segundo gif */
 }
 
 footer {
@@ -92,7 +92,7 @@ footer {
     left: 0;
     width: 100%;
     padding: 50px;
-    text-align: center; /* Alinear el contenido del pie de página al centro */
+    text-align: center; /* Alinear el contenido del pie de pï¿½gina al centro */
 }
 
 .footer-content {
@@ -102,5 +102,5 @@ footer {
 }
 
 .footer-text {
-    color: darkslategray; /* Cambia el color de los textos del pie de página */
-}s
+    color: darkslategray; /* Cambia el color de los textos del pie de pï¿½gina */
+}

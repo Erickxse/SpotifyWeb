@@ -2,13 +2,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <title>SPBG</title>
+    <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPBG</title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon"> <!-- Reemplaza "ruta_del_icono.ico" con la ruta de tu ícono -->
     <link rel="stylesheet" href="css/styles.css"> <!-- Vincula tu archivo de estilos CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"
+    ></script>
 </head>
 <body>
     <header>
@@ -16,17 +21,12 @@
     </header>
 
     <main>
-        <audio autoplay>
-            <source src="audio/BoxBells.mp3" type="audio/mpeg"> <!-- Reemplaza "ruta_del_audio.mp3" con la ruta de tu archivo de audio -->
-            <source src="audio/BoxBells.ogg" type="audio/ogg"> <!-- Proporciona una alternativa en formato ogg para navegadores que no admitan mp3 -->
-            <!-- Puedes agregar más formatos de audio aquí si es necesario -->
-        </audio>
         <div class="center-container">
             <p class="main-text">What is your favorite song?</p>
             <img src="pictures/IconBoxGif2.gif" alt="GIF del centro de la página" id="gif">
-            <a href="https://accounts.spotify.com/authorize?client_id=970017726a0d4148a54e8887d5985452&redirect_uri=https://quiet-rabanadas-52e0a4.netlify.app/login&response_type=code&scope=playlist-read-private,playlist-read-collaborative,playlist-read">
-                <button>START</button>
-            </a>
+            <button class="log-button" id="login-button" 
+            onclick="authorize()">
+            <i class="sync icon"></i>START</button>
         </div>
     </main>
     <!-- Agregar el pie de página -->
@@ -38,4 +38,5 @@
         </div>
     </footer>
 </body>
+<script src="head.js"></script>
 </html>
