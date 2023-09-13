@@ -32,3 +32,17 @@ function authorize() {
     // Paste the final URL format
     window.location = url;
   }
+
+  // Grab the access token
+// with the help of regex
+// But first do an if
+function getHashValue(key) {
+  if (typeof key !== 'string') {
+    key = '';
+  } else {
+    key = key.toLowerCase();
+  }
+  const keyAndHash = location.hash.match(new RegExp(key + '=([^&]*)'));
+  const value = keyAndHash ? keyAndHash[1] : '';
+  return value;
+}
