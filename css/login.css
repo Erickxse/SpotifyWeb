@@ -42,9 +42,10 @@ header {
 
 .playlist-container {
     flex: 1;
-    max-height: 200px; /* Establece la altura máxima deseada para el contenedor de las playlists */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-    padding: 10px; /* Ajusta el espacio interior según sea necesario */
+    overflow-y: auto;
+    padding: 0; /* Ajusta el padding a 0 para eliminar cualquier espacio adicional */
+    margin: 0; /* Ajusta el margin a 0 para eliminar cualquier espacio adicional */
+    max-height: 100%; /* Establece la altura máxima al 100% del espacio disponible en white-box */
 }
 
 .black-box {
