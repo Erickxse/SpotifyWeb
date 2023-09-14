@@ -46,6 +46,10 @@ header {
     max-height: 550px; /* Establece la altura máxima deseada para el contenedor de las playlists */
     overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
     padding: 10px; /* Ajusta el espacio interior según sea necesario */
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Divide en tres columnas de igual tamaño */
+    gap: 10px; /* Espacio entre las columnas (ajusta según sea necesario) */
 }
 
 .playlist-container img {
