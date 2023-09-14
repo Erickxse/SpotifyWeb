@@ -43,9 +43,10 @@ header {
 .playlist-container {
     flex: 1;
     overflow-y: auto;
-    padding: 0; /* Ajusta el padding a 0 para eliminar cualquier espacio adicional */
-    margin: 0; /* Ajusta el margin a 0 para eliminar cualquier espacio adicional */
+    padding: 0;
+    margin: 0;
     max-height: 100%; /* Establece la altura máxima al 100% del espacio disponible en white-box */
+    height: auto; /* Agrega esta línea para ajustar la altura automáticamente al contenido */
 }
 
 .black-box {
