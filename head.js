@@ -4,7 +4,7 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let limit = '20';
-let currentOffset = 0;
+
 
 // Authorization
 function authorize() {
@@ -51,7 +51,7 @@ function getUserId() {
     }
 }
 
-function getPlaylists(offset) {
+function getPlaylists() {
     $('#playlist-button').addClass("loading");
 
     if (access_token) {
@@ -60,24 +60,34 @@ function getPlaylists(offset) {
             headers: {
                 'Authorization': 'Bearer ' + access_token,
             },
-            data: {
-                offset: offset,
-                limit: limit,
-            },
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
+                // Obtén una referencia al contenedor de listas de reproducción
                 const playlistContainer = $('#playlist-container');
+                playlistContainer.empty(); // Limpia cualquier contenido anterior
 
                 if (response.items.length === 0) {
+                    // Si no se encontraron listas de reproducción
                     playlistContainer.html('<p>No playlists found.</p>');
                 } else {
+                    // Genera el HTML para mostrar las listas de reproducción
                     let resultsHtml = '';
                     response.items.forEach((item, i) => {
-                        // ... Tu código para generar HTML de listas de reproducción ...
+                        let playlistName = item.name;
+                        let playlistUrl = item.external_urls.spotify;
+                        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
+
+                        resultsHtml += '<div class="column wide playlist item">';
+                        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
+                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
+                        resultsHtml += '</div>';
                     });
 
+                    // Agrega el HTML generado al contenedor de listas de reproducción
                     playlistContainer.html(resultsHtml);
                 }
+
+                playlistdisplayed = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -88,10 +98,6 @@ function getPlaylists(offset) {
     }
 }
 
-function loadNextPage() {
-    currentOffset += limit; // Aumenta el offset para cargar la siguiente página
-    getPlaylists(currentOffset);
-}
 
 function handleApiError(error) {
     $('#playlist-button').removeClass("loading");
