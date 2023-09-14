@@ -24,7 +24,7 @@ header {
     padding: 20px;
     max-width: 900px;
     width: 95%;
-    max-height: calc(100vh - 160px);
+    max-height: 100%; /* Cambiar a 100% para ocupar toda la altura de white-box */
     margin: auto;
     position: absolute;
     top: calc(10vh + 30px);
