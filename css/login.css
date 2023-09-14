@@ -52,7 +52,7 @@ header {
     color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
     width: 100%; /* Ajustar el ancho del recuadro al 100% del ancho del white-box */
-    height: 10vh; /* Altura del recuadro (aj�stala seg�n tus necesidades) */
+    height: 8vh; /* Altura del recuadro (aj�stala seg�n tus necesidades) */
     position: absolute; /* A�adimos position: absolute para posicionar black-box dentro de white-box */
     top: 0; /* Posicionamos black-box desde el borde superior */
     left: 0; /* Posicionamos black-box desde el borde izquierdo */
