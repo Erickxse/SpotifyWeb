@@ -21,23 +21,22 @@ header {
 }
 .white-box {
     background-color: white;
-    padding: 20px; /* Margen interior para separar el contenido del recuadro */
-    max-width: 900px; /* Ancho m�ximo del recuadro */
-    width: 95%; /* Ajustar el ancho del recuadro al 90% del ancho de la pantalla */
-    /*height: 100vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
+    padding: 20px;
+    max-width: 900px;
+    width: 95%;
     max-height: calc(100vh - 160px);
-    margin: auto; / /* Centrar el recuadro horizontalmente */
-    /*margin-top: 20px;*/
-    z-index: 1; /* Añade un z-index para asegurarte de que white-box esté encima*/
-    display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
-    flex-direction: column; /* Alinear el contenido en columnas */
-    position: absolute; /* A�adimos position: relative para que black-box sea relativo a white-box */
-    top: calc(10vh + 20px); /* Desplaza white-box hacia arriba para superponer a black-box */
+    margin: auto;
+    position: absolute;
+    top: calc(10vh + 20px);
     bottom: calc(60px + 20px);
     left: 0;
     right: 0;
-    overflow: hidden; /* A�adimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
+    overflow: hidden;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar contenido verticalmente */
+    align-items: center; /* Centrar contenido horizontalmente */
     opacity: 0.9;
 }
 
