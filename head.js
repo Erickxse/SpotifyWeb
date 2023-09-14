@@ -51,43 +51,51 @@ function getUserId() {
 }
 
 function getPlaylists() {
-    const limit = 20; // Número de resultados por página
-    let offset = 0; // Offset inicial (página 1)
+    $('#playlist-button').addClass("loading");
 
-    function fetchPlaylists() {
-        // Realiza una solicitud a la API de Spotify con el offset actual
+    if (access_token) {
         $.ajax({
-            url: `https://api.spotify.com/v1/me/playlists?limit=${limit}&offset=${offset}`,
+            url: 'https://api.spotify.com/v1/me/playlists',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
             },
             success: function(response) {
-                // Procesa los resultados aquí (agrega a tu lista de reproducción, etc.)
-                // ...
+                $('#playlist-button').removeClass("loading");
+                // Obtén una referencia al contenedor de listas de reproducción
+                const playlistContainer = $('#playlist-container');
+                playlistContainer.empty(); // Limpia cualquier contenido anterior
 
-                // Verifica si hay más páginas de resultados
-                if (response.next) {
-                    // Si hay más páginas, actualiza el offset y obtén la siguiente página
-                    offset += limit;
-                    fetchPlaylists();
+                if (response.items.length === 0) {
+                    // Si no se encontraron listas de reproducción
+                    playlistContainer.html('<p>No playlists found.</p>');
+                } else {
+                    // Genera el HTML para mostrar las listas de reproducción
+                    let resultsHtml = '';
+                    response.items.forEach((item, i) => {
+                        let playlistName = item.name;
+                        let playlistUrl = item.external_urls.spotify;
+                        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
+
+                        resultsHtml += '<div class="column wide playlist item">';
+                        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
+                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
+                        resultsHtml += '</div>';
+                    });
+
+                    // Agrega el HTML generado al contenedor de listas de reproducción
+                    playlistContainer.html(resultsHtml);
                 }
+
+                playlistdisplayed = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
             },
         });
-    }
-
-    $('#playlist-button').addClass("loading");
-
-    if (access_token) {
-        // Inicia la obtención de listas de reproducción
-        fetchPlaylists();
     } else {
         alert('Please log in to Spotify.');
     }
 }
-
 
 
 function handleApiError(error) {
