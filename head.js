@@ -4,6 +4,7 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let limit = '20';
+let currentOffset = 0;
 
 
 // Authorization
@@ -51,26 +52,30 @@ function getUserId() {
     }
 }
 
-function getPlaylists() {
+function getPlaylists(offset) {
     $('#playlist-button').addClass("loading");
 
     if (access_token) {
+        // Define el límite de listas de reproducción por página
+        const limit = 20;
+
         $.ajax({
             url: 'https://api.spotify.com/v1/me/playlists',
             headers: {
                 'Authorization': 'Bearer ' + access_token,
             },
+            data: {
+                offset: offset,
+                limit: limit,
+            },
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
-                // Obtén una referencia al contenedor de listas de reproducción
                 const playlistContainer = $('#playlist-container');
-                playlistContainer.empty(); // Limpia cualquier contenido anterior
 
                 if (response.items.length === 0) {
                     // Si no se encontraron listas de reproducción
                     playlistContainer.html('<p>No playlists found.</p>');
                 } else {
-                    // Genera el HTML para mostrar las listas de reproducción
                     let resultsHtml = '';
                     response.items.forEach((item, i) => {
                         let playlistName = item.name;
@@ -79,11 +84,10 @@ function getPlaylists() {
 
                         resultsHtml += '<div class="column wide playlist item">';
                         resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
-                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
+                        resultsHtml += '<h4>' + (i + 1 + offset) + '. ' + playlistName + '</h4>';
                         resultsHtml += '</div>';
                     });
 
-                    // Agrega el HTML generado al contenedor de listas de reproducción
                     playlistContainer.html(resultsHtml);
                 }
 
@@ -96,6 +100,12 @@ function getPlaylists() {
     } else {
         alert('Please log in to Spotify.');
     }
+}
+
+// Función para cargar la siguiente página de listas de reproducción
+function loadNextPage() {
+    currentOffset += limit; // Aumenta el offset para cargar la siguiente página
+    getPlaylists(currentOffset);
 }
 
 
