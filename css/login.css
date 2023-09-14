@@ -37,7 +37,7 @@ header {
     flex-direction: column;
     justify-content: right; /* Centrar contenido verticalmente */
     align-items: center; /* Centrar contenido horizontalmente */
-    opacity: 0.9;
+    opacity: 0.6;
 }
 
 .playlist-container {
@@ -66,7 +66,7 @@ header {
 /* Estilizar la scrollbar y su pulgar (scrollbar thumb) con opacidad */
 .playlist-container::-webkit-scrollbar {
     width: 10px; /* Ancho de la scrollbar */
-    opacity: 0.9; /* Opacidad de la scrollbar */
+    opacity: 0.4; /* Opacidad de la scrollbar */
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
