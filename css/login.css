@@ -48,6 +48,17 @@ header {
     padding: 10px; /* Ajusta el espacio interior según sea necesario */
 }
 
+.playlist-container img {
+    max-width: 150px; /* Cambia el valor según el tamaño deseado */
+    max-height: 150px; /* Cambia el valor según el tamaño deseado */
+    margin-right: 10px; /* Espaciado entre las imágenes (opcional) */
+}
+
+/* Establece un tamaño de fuente más pequeño para los títulos de las playlists */
+.playlist-container h4 {
+    font-size: 14px; /* Cambia el valor según el tamaño deseado */
+}
+
 .black-box {
     background-color: black;
     color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
