@@ -27,7 +27,7 @@ header {
     max-height: 100%; /* Cambiar a 100% para ocupar toda la altura de white-box */
     margin: auto;
     position: absolute;
-    top: calc(10vh + 30px);
+    top: calc(10vh + 20px);
     bottom: calc(60px + 20px);
     left: 0;
     right: 0;
