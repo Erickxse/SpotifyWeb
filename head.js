@@ -9,7 +9,7 @@ let limit = '20';
 function authorize() {
     const client_id = '970017726a0d4148a54e8887d5985452';
     const redirect_uri = 'https://quiet-rabanadas-52e0a4.netlify.app/login';
-    const scopes = 'playlist-read-public';
+    const scopes = 'playlist-read-private playlist-read-collaborative playlist-read';
 
     let url = 'https://accounts.spotify.com/authorize';
     url += '?response_type=token';
