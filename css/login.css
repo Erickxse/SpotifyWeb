@@ -63,6 +63,18 @@ header {
     font-size: 14px; /* Cambia el valor según el tamaño deseado */
 }
 
+/* Estilizar la scrollbar y su pulgar (scrollbar thumb) con opacidad */
+.playlist-container::-webkit-scrollbar {
+    width: 10px; /* Ancho de la scrollbar */
+    opacity: 0.7; /* Opacidad de la scrollbar */
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo del pulgar de la scrollbar con opacidad */
+    border-radius: 5px; /* Borde redondeado del pulgar */
+}
+
+
 .black-box {
     background-color: black;
     color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
