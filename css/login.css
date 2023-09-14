@@ -97,7 +97,7 @@ body::before {
 }
 
 footer {
-    background-color: white;
+    /*background-color: white;*/
     position: absolute;
     bottom: 0;
     left: 0;
