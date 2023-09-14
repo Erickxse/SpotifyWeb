@@ -26,14 +26,17 @@ header {
     width: 95%; /* Ajustar el ancho del recuadro al 90% del ancho de la pantalla */
     /*height: 100vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
     max-height: calc(100vh - 160px);
-    margin: 20px auto; / /* Centrar el recuadro horizontalmente */
+    margin: 0; / /* Centrar el recuadro horizontalmente */
     /*margin-top: 20px;*/
     z-index: 1; /* Añade un z-index para asegurarte de que white-box esté encima
     display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
     flex-direction: column; /* Alinear el contenido en columnas */
     opacity: 0.9;
-    position: relative; /* A�adimos position: relative para que black-box sea relativo a white-box */
-    top: -20px; /* Desplaza white-box hacia arriba para superponer a black-box */
+    position: absolute; /* A�adimos position: relative para que black-box sea relativo a white-box */
+    top: calc(10vh + 20px); /* Desplaza white-box hacia arriba para superponer a black-box */
+    bottom: calc(60px + 20px);
+    left: 0;
+    right: 0;
     overflow: hidden; /* A�adimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
     overflow-y: auto;
 }
