@@ -3,7 +3,10 @@ let access_token = null;
 let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
-let limit = '20';
+
+let offset = 0; // Inicialmente, la paginación comienza en 0
+const limit = 20; // Cantidad de resultados por página
+
 
 // Authorization
 function authorize() {
@@ -50,7 +53,7 @@ function getUserId() {
     }
 }
 
-function getPlaylists() {
+function getPlaylists(offset) {
     $('#playlist-button').addClass("loading");
 
     if (access_token) {
@@ -59,34 +62,28 @@ function getPlaylists() {
             headers: {
                 'Authorization': 'Bearer ' + access_token,
             },
+            data: {
+                offset: offset, // Agrega el offset como parámetro
+                limit: limit, // Limita la cantidad de resultados por página
+            },
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
-                // Obtén una referencia al contenedor de listas de reproducción
                 const playlistContainer = $('#playlist-container');
-                playlistContainer.empty(); // Limpia cualquier contenido anterior
 
                 if (response.items.length === 0) {
-                    // Si no se encontraron listas de reproducción
                     playlistContainer.html('<p>No playlists found.</p>');
                 } else {
-                    // Genera el HTML para mostrar las listas de reproducción
                     let resultsHtml = '';
                     response.items.forEach((item, i) => {
-                        let playlistName = item.name;
-                        let playlistUrl = item.external_urls.spotify;
-                        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
-
-                        resultsHtml += '<div class="column wide playlist item">';
-                        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
-                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
-                        resultsHtml += '</div>';
+                        // ... Tu código para generar HTML de listas de reproducción ...
                     });
 
-                    // Agrega el HTML generado al contenedor de listas de reproducción
                     playlistContainer.html(resultsHtml);
-                }
 
-                playlistdisplayed = true;
+                    // Agregar botones de paginación
+                    const paginationHtml = generatePaginationButtons(response.total, offset);
+                    playlistContainer.append(paginationHtml);
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -96,6 +93,36 @@ function getPlaylists() {
         alert('Please log in to Spotify.');
     }
 }
+
+
+function generatePaginationButtons(totalResults, currentOffset) {
+    const totalPages = Math.ceil(totalResults / limit);
+    const prevDisabled = currentOffset === 0 ? 'disabled' : '';
+    const nextDisabled = currentOffset >= totalResults - limit ? 'disabled' : '';
+
+    let paginationHtml = '<div class="pagination">';
+    paginationHtml += '<button class="prev-page" ' + prevDisabled + ' onclick="loadPreviousPage()">&#8249; Previous</button>';
+    paginationHtml += '<button class="next-page" ' + nextDisabled + ' onclick="loadNextPage()">&#8250; Next</button>';
+    paginationHtml += '</div>';
+
+    return paginationHtml;
+}
+
+
+function loadPreviousPage() {
+    if (offset - limit >= 0) {
+        offset -= limit;
+        getPlaylists(offset);
+    }
+}
+
+function loadNextPage() {
+    if (offset + limit < totalResults) {
+        offset += limit;
+        getPlaylists(offset);
+    }
+}
+
 
 
 function handleApiError(error) {
