@@ -21,8 +21,17 @@
         </header>
         <!-- Contenido de la p�gina -->
         <main>
+            <div class="playlist-container" id="playlist-container">
+                <script>
+                    // Llama a la función getPlaylists() después de que el usuario se haya autenticado en index.html
+                    $(document).ready(function() {
+                        getPlaylists();
+                    });
+                </script>
+            </div> 
         </main>
     </div>
+    <script src="head.js"></script>
 </body>
 <footer>
     <div class="footer-content">

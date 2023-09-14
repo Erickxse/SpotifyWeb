@@ -33,7 +33,6 @@ header {
     position: relative; /* A�adimos position: relative para que black-box sea relativo a white-box */
     overflow: hidden; /* A�adimos overflow: hidden para evitar que el contenido de black-box se salga de white-box */
 }
-
 .black-box {
     background-color: black;
     color: white; /* Cambia el color del texto a blanco para que sea visible en el fondo negro */
