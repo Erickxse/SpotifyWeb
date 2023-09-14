@@ -25,7 +25,7 @@ header {
     padding: 20px; /* Margen interior para separar el contenido del recuadro */
     max-width: 900px; /* Ancho m�ximo del recuadro */
     width: 95%; /* Ajustar el ancho del recuadro al 90% del ancho de la pantalla */
-    /*height: 100vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
+    height: 100vh; /* Ajustar la altura del recuadro al 90% de la altura de la pantalla */
     margin: auto; /* Centrar el recuadro horizontalmente */
     display: flex; /* Cambiar a display flex para centrar el contenido verticalmente */
     flex-direction: column; /* Alinear el contenido en columnas */
