@@ -48,7 +48,7 @@ header {
     padding: 10px; /* Ajusta el espacio interior según sea necesario */
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Divide en tres columnas de igual tamaño */
+    grid-template-columns: repeat(4, 1fr); /* Divide en tres columnas de igual tamaño */
     gap: 10px; /* Espacio entre las columnas (ajusta según sea necesario) */
 }
 
