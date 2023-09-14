@@ -23,7 +23,7 @@ header {
     background-color: white;
     padding: 20px;
     max-width: 900px;
-    width: 95%;
+    width: 90%;
     max-height: 100%; /* Cambiar a 100% para ocupar toda la altura de white-box */
     margin: auto;
     position: absolute;
