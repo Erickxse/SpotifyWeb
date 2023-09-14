@@ -27,14 +27,12 @@ header {
     width: 95%;
     /* height: 100vh; */ /* Puedes comentar o eliminar esta línea */
     max-height: calc(100vh - 160px);
-    margin: 20px auto 50px;
-    margin-top: 20px;
+    margin: 20px auto;
     z-index: 1;
     display: flex;
     flex-direction: column;
     opacity: 0.9;
     position: relative;
-    top: -20px;
     overflow: hidden;
     overflow-y: auto; /* Agrega esta línea */
 }
@@ -100,7 +98,8 @@ body::before {
 
 footer {
     /*background-color: white;*/
-    bottom: 0;
+    position: fixed; /* Cambia a posición fija */
+    bottom: 20vh;
     left: 0;
     width: 100%;
     padding: 50px;
