@@ -97,11 +97,12 @@ body::before {
 }
 
 footer {
-    /*background-color: white;*/
+    background-color: white;
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 50px;
+    padding: 20px 0;
     text-align: center; /* Alinear el contenido del pie de p�gina al centro */
 }
 
