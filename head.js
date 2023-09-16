@@ -5,7 +5,7 @@ let playlistdisplayed = false;
 let time_range = 'short_term';
 let currentPage = 1;
 const playlistsPerPage = 4; // Número de listas de reproducción por página
-let allPlaylists = []; // Almacenar todas las listas de reproducción
+
 
 // Authorization
 function authorize() {
@@ -106,22 +106,15 @@ function getPlaylists() {
 }
 
 // Función para mostrar las listas de reproducción en la página actual
-function displayPlaylists(page) {
+function displayPlaylists(playlists, page) {
     const start = (page - 1) * playlistsPerPage;
     const end = start + playlistsPerPage;
-    const playlistsToDisplay = allPlaylists.slice(start, end);
+    const playlistsToDisplay = playlists.slice(start, end);
 
     // Genera el HTML para las listas de reproducción a mostrar
     let resultsHtml = '';
     playlistsToDisplay.forEach((item, i) => {
-        let playlistName = item.name;
-        let playlistUrl = item.external_urls.spotify;
-        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
-
-        resultsHtml += '<div class="column wide playlist item">';
-        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
-        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
-        resultsHtml += '</div>';
+        // Código para generar cada elemento de lista de reproducción (similar al existente)
     });
 
     // Agrega el HTML generado al contenedor de listas de reproducción
@@ -133,15 +126,15 @@ function handlePagination() {
     $('#prev-page').on('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            displayPlaylists(currentPage);
+            displayPlaylists(playlists, currentPage);
         }
     });
 
     $('#next-page').on('click', function() {
-        const totalPages = Math.ceil(allPlaylists.length / playlistsPerPage);
+        const totalPages = Math.ceil(playlists.length / playlistsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
-            displayPlaylists(currentPage);
+            displayPlaylists(playlists, currentPage);
         }
     });
 }
