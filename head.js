@@ -5,7 +5,7 @@ let playlistdisplayed = false;
 let time_range = 'short_term';
 let currentPage = 1;
 const playlistsPerPage = 4; // Número de listas de reproducción por página
-
+let allPlaylists = []; // Almacenar todas las listas de reproducción
 
 // Authorization
 function authorize() {
@@ -109,12 +109,19 @@ function getPlaylists() {
 function displayPlaylists(page) {
     const start = (page - 1) * playlistsPerPage;
     const end = start + playlistsPerPage;
-    const playlistsToDisplay = allPlaylists.slice(start, end); // Utiliza allPlaylists
+    const playlistsToDisplay = allPlaylists.slice(start, end);
 
     // Genera el HTML para las listas de reproducción a mostrar
     let resultsHtml = '';
     playlistsToDisplay.forEach((item, i) => {
-        // Código para generar cada elemento de lista de reproducción (similar al existente)
+        let playlistName = item.name;
+        let playlistUrl = item.external_urls.spotify;
+        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
+
+        resultsHtml += '<div class="column wide playlist item">';
+        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
+        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
+        resultsHtml += '</div>';
     });
 
     // Agrega el HTML generado al contenedor de listas de reproducción
@@ -126,15 +133,15 @@ function handlePagination() {
     $('#prev-page').on('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            displayPlaylists(playlists, currentPage);
+            displayPlaylists(currentPage);
         }
     });
 
     $('#next-page').on('click', function() {
-        const totalPages = Math.ceil(playlists.length / playlistsPerPage);
+        const totalPages = Math.ceil(allPlaylists.length / playlistsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
-            displayPlaylists(playlists, currentPage);
+            displayPlaylists(currentPage);
         }
     });
 }
