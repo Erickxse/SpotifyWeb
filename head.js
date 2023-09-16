@@ -65,13 +65,32 @@ function getPlaylists() {
             },
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
+                // Obtén una referencia al contenedor de listas de reproducción
+                const playlistContainer = $('#playlist-container');
+                playlistContainer.empty(); // Limpia cualquier contenido anterior
 
-                playlists = response.items;
-                displayPlaylists(currentPage);
+                if (response.items.length === 0) {
+                    // Si no se encontraron listas de reproducción
+                    playlistContainer.html('<p>No playlists found.</p>');
+                } else {
+                    // Genera el HTML para mostrar las listas de reproducción
+                    let resultsHtml = '';
+                    response.items.forEach((item, i) => {
+                        let playlistName = item.name;
+                        let playlistUrl = item.external_urls.spotify;
+                        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
 
-                // Control de visibilidad de los botones de paginación
-                $('#previous-button').prop('disabled', currentPage === 1);
-                $('#next-button').prop('disabled', currentPage * itemsPerPage >= playlists.length);
+                        resultsHtml += '<div class="column wide playlist item">';
+                        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
+                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
+                        resultsHtml += '</div>';
+                    });
+
+                    // Agrega el HTML generado al contenedor de listas de reproducción
+                    playlistContainer.html(resultsHtml);
+                }
+
+                playlistdisplayed = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -81,51 +100,6 @@ function getPlaylists() {
         alert('Please log in to Spotify.');
     }
 }
-
-// Función para mostrar un conjunto de playlists en la página actual
-function displayPlaylists(page) {
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const pagePlaylists = playlists.slice(startIndex, endIndex);
-
-    // Limpia el contenedor de las playlists
-    $('#playlist-container').empty();
-
-    // Genera el HTML para mostrar las playlists
-    pagePlaylists.forEach((item, i) => {
-        let playlistName = item.name;
-        let playlistUrl = item.external_urls.spotify;
-        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
-
-        const playlistHtml = '<div class="column wide playlist item">' +
-            '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>' +
-            '<h4>' + (startIndex + i + 1) + '. ' + playlistName + '</h4>' +
-            '</div>';
-
-        $('#playlist-container').append(playlistHtml);
-    });
-}
-
-// Evento para avanzar a la siguiente página
-$('#next-button').on('click', function() {
-    currentPage++;
-    displayPlaylists(currentPage);
-
-    // Control de visibilidad de los botones de paginación
-    $('#previous-button').prop('disabled', false);
-    $('#next-button').prop('disabled', currentPage * itemsPerPage >= playlists.length);
-});
-
-// Evento para retroceder a la página anterior
-$('#previous-button').on('click', function() {
-    currentPage--;
-    displayPlaylists(currentPage);
-
-    // Control de visibilidad de los botones de paginación
-    $('#previous-button').prop('disabled', currentPage === 1);
-    $('#next-button').prop('disabled', false);
-});
-
 
 
 function handleApiError(error) {
