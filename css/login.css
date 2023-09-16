@@ -91,7 +91,7 @@ header {
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
-    background-color: rgba(65, 63, 63, 0.5); /* Color de fondo del pulgar de la scrollbar con opacidad */
+    background-color: rgb(255, 255, 255); /* Color de fondo del pulgar de la scrollbar con opacidad */
     border-radius: 5px; /* Borde redondeado del pulgar */
 }
 
