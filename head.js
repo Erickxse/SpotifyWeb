@@ -115,7 +115,13 @@ function displayPlaylists(playlists, page) {
     // Genera el HTML para las listas de reproducción a mostrar
     let resultsHtml = '';
     playlistsToDisplay.forEach((item, i) => {
-        // Código para generar cada elemento de lista de reproducción (similar al existente)
+        // Crea una estructura HTML para mostrar cada lista de reproducción
+        resultsHtml += '<div class="playlist-item">';
+        resultsHtml += '<a href="' + item.playlistUrl + '" target="_blank">';
+        resultsHtml += '<img src="' + item.playlistImage + '" alt="' + item.playlistName + '">';
+        resultsHtml += '</a>';
+        resultsHtml += '<h4>' + (start + i + 1) + '. ' + item.playlistName + '</h4>';
+        resultsHtml += '</div>';
     });
 
     // Agrega el HTML generado al contenedor de listas de reproducción
