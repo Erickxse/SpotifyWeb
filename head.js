@@ -4,9 +4,8 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let limit = '20';
-let currentPage = 1; // Página actual
-const itemsPerPage = 4; // Número de playlists por página
-let playlists = []; // Almacena todas las playlists del usuario
+let currentPage = 1;
+const playlistsPerPage = 20; // Número de listas de reproducción por página
 
 
 // Authorization
@@ -99,8 +98,47 @@ function getPlaylists() {
     } else {
         alert('Please log in to Spotify.');
     }
+
+    // Llama a la función para mostrar las listas de reproducción
+    displayPlaylists(playlists, currentPage);
+
+    // Llama a la función para manejar la paginación
+    handlePagination();
 }
 
+// Función para mostrar las listas de reproducción en la página actual
+function displayPlaylists(playlists, page) {
+    const start = (page - 1) * playlistsPerPage;
+    const end = start + playlistsPerPage;
+    const playlistsToDisplay = playlists.slice(start, end);
+
+    // Genera el HTML para las listas de reproducción a mostrar
+    let resultsHtml = '';
+    playlistsToDisplay.forEach((item, i) => {
+        // Código para generar cada elemento de lista de reproducción (similar al existente)
+    });
+
+    // Agrega el HTML generado al contenedor de listas de reproducción
+    $('#playlist-container').html(resultsHtml);
+}
+
+// Función para manejar el cambio de página
+function handlePagination() {
+    $('#prev-page').on('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayPlaylists(playlists, currentPage);
+        }
+    });
+
+    $('#next-page').on('click', function() {
+        const totalPages = Math.ceil(playlists.length / playlistsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayPlaylists(playlists, currentPage);
+        }
+    });
+}
 
 function handleApiError(error) {
     $('#playlist-button').removeClass("loading");

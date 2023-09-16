@@ -40,6 +40,20 @@ header {
     opacity: 0.8;
 }
 
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #003f54;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 .playlist-container {
     flex: 1;
     max-width:fit-content;
