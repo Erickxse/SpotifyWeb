@@ -149,9 +149,6 @@ $(document).ready(function() {
     access_token = getHashValue('access_token');
     
     $('#playlist-button').on('click', function() {
-        // Aquí, obtén las listas de reproducción antes de llamar a getPlaylists
-        // Puedes cargar las listas de reproducción en la variable 'playlists'
-        // Luego, llama a getPlaylists
         getPlaylists();
     });
 
