@@ -42,7 +42,7 @@ header {
 
 .pagination {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .pagination button {
@@ -52,6 +52,13 @@ header {
     color: white;
     border: none;
     cursor: pointer;
+    display: inline-block;
+}
+
+.playlist-content {
+    max-height: 550px; /* Altura máxima deseada para las listas de reproducción */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+    position: relative;
 }
 
 .playlist-container {
