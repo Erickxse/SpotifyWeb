@@ -4,7 +4,7 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let currentPage = 1;
-const playlistsPerPage = 5; // Número de listas de reproducción por página
+const playlistsPerPage = 4; // Número de listas de reproducción por página
 
 
 // Authorization
