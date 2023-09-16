@@ -4,6 +4,7 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let limit = '20';
+let allPlaylists = [];
 let currentPage = 1;
 const playlistsPerPage = 20; // Número de listas de reproducción por página
 
@@ -64,32 +65,18 @@ function getPlaylists() {
             },
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
-                // Obtén una referencia al contenedor de listas de reproducción
-                const playlistContainer = $('#playlist-container');
-                playlistContainer.empty(); // Limpia cualquier contenido anterior
+                const playlists = response.items;
 
-                if (response.items.length === 0) {
+                if (playlists.length === 0) {
                     // Si no se encontraron listas de reproducción
-                    playlistContainer.html('<p>No playlists found.</p>');
+                    $('#playlist-container').html('<p>No playlists found.</p>');
                 } else {
-                    // Genera el HTML para mostrar las listas de reproducción
-                    let resultsHtml = '';
-                    response.items.forEach((item, i) => {
-                        let playlistName = item.name;
-                        let playlistUrl = item.external_urls.spotify;
-                        let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
+                    // Almacena todas las listas de reproducción en la variable global
+                    allPlaylists = playlists;
 
-                        resultsHtml += '<div class="column wide playlist item">';
-                        resultsHtml += '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>';
-                        resultsHtml += '<h4>' + (i + 1) + '. ' + playlistName + '</h4>';
-                        resultsHtml += '</div>';
-                    });
-
-                    // Agrega el HTML generado al contenedor de listas de reproducción
-                    playlistContainer.html(resultsHtml);
+                    // Muestra las listas de reproducción de la página actual
+                    displayPlaylists(allPlaylists, currentPage);
                 }
-
-                playlistdisplayed = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -98,7 +85,6 @@ function getPlaylists() {
     } else {
         alert('Please log in to Spotify.');
     }
-
     // Llama a la función para mostrar las listas de reproducción
     displayPlaylists(playlists, currentPage);
 
@@ -127,18 +113,19 @@ function handlePagination() {
     $('#prev-page').on('click', function() {
         if (currentPage > 1) {
             currentPage--;
-            displayPlaylists(playlists, currentPage);
+            displayPlaylists(allPlaylists, currentPage); // Utiliza allPlaylists
         }
     });
 
     $('#next-page').on('click', function() {
-        const totalPages = Math.ceil(playlists.length / playlistsPerPage);
+        const totalPages = Math.ceil(allPlaylists.length / playlistsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
-            displayPlaylists(playlists, currentPage);
+            displayPlaylists(allPlaylists, currentPage); // Utiliza allPlaylists
         }
     });
 }
+
 
 function handleApiError(error) {
     $('#playlist-button').removeClass("loading");
