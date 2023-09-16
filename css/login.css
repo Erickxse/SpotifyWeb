@@ -87,7 +87,7 @@ header {
 /* Estilizar la scrollbar y su pulgar (scrollbar thumb) con opacidad */
 .playlist-container::-webkit-scrollbar {
     width: 10px; /* Ancho de la scrollbar */
-    opacity: 0.4; /* Opacidad de la scrollbar */
+    opacity: 0; /* Opacidad de la scrollbar */
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
