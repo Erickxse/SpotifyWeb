@@ -3,7 +3,6 @@ let access_token = null;
 let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
-let limit = '40';
 let currentPage = 1;
 const playlistsPerPage = 20; // Número de listas de reproducción por página
 
