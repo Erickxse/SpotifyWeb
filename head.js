@@ -106,10 +106,10 @@ function getPlaylists() {
 }
 
 // Función para mostrar las listas de reproducción en la página actual
-function displayPlaylists(playlists, page) {
+function displayPlaylists(page) {
     const start = (page - 1) * playlistsPerPage;
     const end = start + playlistsPerPage;
-    const playlistsToDisplay = playlists.slice(start, end);
+    const playlistsToDisplay = allPlaylists.slice(start, end); // Utiliza allPlaylists
 
     // Genera el HTML para las listas de reproducción a mostrar
     let resultsHtml = '';
