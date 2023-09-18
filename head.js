@@ -4,7 +4,7 @@ let user_id = null;
 let playlistdisplayed = false;
 let time_range = 'short_term';
 let currentPage = 1; // Página actual
-const itemsPerPage = 10; // Número de playlists por página
+const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
 
 
