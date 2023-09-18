@@ -40,6 +40,16 @@ header {
     opacity: 0.8;
 }
 
+.white-box ::-webkit-scrollbar{
+    width: 10px; /* Ancho de la scrollbar */
+    opacity: 0.6; /* Opacidad de la scrollbar */
+}
+
+.white-box ::-webkit-scrollbar-thumb{
+
+    background-color: rgb(85, 82, 82); /* Color de fondo del pulgar de la scrollbar con opacidad */
+    border-radius: 5px; /* Borde redondeado del pulgar */
+}
 .playlist-container {
     flex: 1;
     max-width:fit-content;
