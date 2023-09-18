@@ -40,27 +40,6 @@ header {
     opacity: 0.8;
 }
 
-.pagination {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.pagination button {
-    margin: 5px;
-    padding: 5px 10px;
-    background-color: #003f54;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.playlist-content {
-    max-height: 550px; /* Altura máxima deseada para las listas de reproducción */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-    position: relative;
-}
-
 .playlist-container {
     flex: 1;
     max-width:fit-content;
@@ -87,11 +66,11 @@ header {
 /* Estilizar la scrollbar y su pulgar (scrollbar thumb) con opacidad */
 .playlist-container::-webkit-scrollbar {
     width: 10px; /* Ancho de la scrollbar */
-    opacity: 0.1; /* Opacidad de la scrollbar */
+    opacity: 0.4; /* Opacidad de la scrollbar */
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
-    background-color: rgb(255, 255, 255); /* Color de fondo del pulgar de la scrollbar con opacidad */
+    background-color: rgba(65, 63, 63, 0.5); /* Color de fondo del pulgar de la scrollbar con opacidad */
     border-radius: 5px; /* Borde redondeado del pulgar */
 }
 
