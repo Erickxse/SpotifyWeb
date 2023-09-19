@@ -66,11 +66,23 @@ function getPlaylists() {
                 $('#playlist-button').removeClass("loading");
 
                 playlists = response.items;
-                displayPlaylists(currentPage);
 
-                // Control de visibilidad de los botones de paginación
-                $('#previous-button').prop('disabled', currentPage === 1);
-                $('#next-button').prop('disabled', currentPage * itemsPerPage >= playlists.length);
+                // Filtrar las listas de reproducción con un máximo de 100 canciones
+                const filteredPlaylists = playlists.filter(function(playlist) {
+                    return playlist.tracks.total <= 100;
+                });
+
+                // Verificar si hay alguna playlist para mostrar
+                if (filteredPlaylists.length > 0) {
+                    displayPlaylists(currentPage, filteredPlaylists);
+
+                    // Control de visibilidad de los botones de paginación
+                    $('#previous-button').prop('disabled', currentPage === 1);
+                    $('#next-button').prop('disabled', currentPage * itemsPerPage >= filteredPlaylists.length);
+                } else {
+                    // No hay listas de reproducción que cumplan con el criterio
+                    $('#playlist-container').html('<p>No se encontraron listas de reproducción con un máximo de 100 canciones.</p>');
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -80,6 +92,7 @@ function getPlaylists() {
         alert('Please log in to Spotify.');
     }
 }
+
 
 // Función para mostrar un conjunto de playlists en la página actual
 function displayPlaylists(page) {
