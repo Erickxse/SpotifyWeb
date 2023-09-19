@@ -66,17 +66,11 @@ function getPlaylists() {
                 $('#playlist-button').removeClass("loading");
 
                 playlists = response.items;
-
-                // Filtrar las listas de reproducción con un máximo de 100 canciones
-                const filteredPlaylists = playlists.filter(function(playlist) {
-                    return playlist.tracks.total <= 100;
-                });
-
-                displayPlaylists(currentPage, filteredPlaylists);
+                displayPlaylists(currentPage);
 
                 // Control de visibilidad de los botones de paginación
                 $('#previous-button').prop('disabled', currentPage === 1);
-                $('#next-button').prop('disabled', currentPage * itemsPerPage >= filteredPlaylists.length);
+                $('#next-button').prop('disabled', currentPage * itemsPerPage >= playlists.length);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 handleApiError(jqXHR.status);
@@ -86,7 +80,6 @@ function getPlaylists() {
         alert('Please log in to Spotify.');
     }
 }
-
 
 // Función para mostrar un conjunto de playlists en la página actual
 function displayPlaylists(page) {
