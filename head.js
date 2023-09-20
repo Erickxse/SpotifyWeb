@@ -82,14 +82,10 @@ function getPlaylists() {
 }
 
 // Función para mostrar un conjunto de playlists en la página actual
-// Función para mostrar un conjunto de playlists en la página actual (filtrando por canciones <= 100)
 function displayPlaylists(page) {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    
-    // Filtrar las playlists que contienen hasta 100 canciones
-    const filteredPlaylists = playlists.filter(item => item.tracks.total <= 100);
-    const pagePlaylists = filteredPlaylists.slice(startIndex, endIndex);
+    const pagePlaylists = playlists.slice(startIndex, endIndex);
 
     // Limpia el contenedor de las playlists
     $('#playlist-container').empty();
@@ -108,7 +104,6 @@ function displayPlaylists(page) {
         $('#playlist-container').append(playlistHtml);
     });
 }
-
 
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
