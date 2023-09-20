@@ -65,7 +65,9 @@ function getPlaylists() {
             success: function(response) {
                 $('#playlist-button').removeClass("loading");
 
-                playlists = response.items;
+                // Filtra las playlists que tienen hasta 100 canciones
+                playlists = response.items.filter(item => item.tracks.total <= 100);
+
                 displayPlaylists(currentPage);
 
                 // Control de visibilidad de los botones de paginación
@@ -80,6 +82,7 @@ function getPlaylists() {
         alert('Please log in to Spotify.');
     }
 }
+
 
 // Función para mostrar un conjunto de playlists en la página actual
 function displayPlaylists(page) {
