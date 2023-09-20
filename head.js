@@ -57,49 +57,31 @@ function getPlaylists() {
     $('#playlist-button').addClass("loading");
 
     if (access_token) {
-        // Inicializa una lista para almacenar todas las playlists
-        let allPlaylists = [];
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/playlists',
+            headers: {
+                'Authorization': 'Bearer ' + access_token,
+            },
+            success: function(response) {
+                $('#playlist-button').removeClass("loading");
 
-        // Función recursiva para obtener todas las playlists paginadas
-        function fetchPlaylists(offset) {
-            $.ajax({
-                url: 'https://api.spotify.com/v1/me/playlists',
-                headers: {
-                    'Authorization': 'Bearer ' + access_token,
-                },
-                data: {
-                    limit: 50, // Número de playlists por página (máximo permitido)
-                    offset: offset // Página actual
-                },
-                success: function(response) {
-                    const playlistsOnPage = response.items.filter(item => item.tracks.total <= 100);
-                    allPlaylists = allPlaylists.concat(playlistsOnPage);
+                // Filtra las playlists que tienen hasta 100 canciones
+                playlists = response.items.filter(item => item.tracks.total <= 100);
 
-                    // Si hay más playlists, realiza una solicitud recursiva
-                    if (response.next) {
-                        const nextPageOffset = offset + 50; // Avanza a la siguiente página
-                        fetchPlaylists(nextPageOffset);
-                    } else {
-                        // Cuando se hayan obtenido todas las playlists, muestra las primeras 8
-                        displayPlaylists(currentPage);
-                        // Control de visibilidad de los botones de paginación
-                        $('#previous-button').prop('disabled', currentPage === 1);
-                        $('#next-button').prop('disabled', currentPage * itemsPerPage >= allPlaylists.length);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    handleApiError(jqXHR.status);
-                },
-            });
-        }
+                displayPlaylists(currentPage);
 
-        // Comienza la recuperación de playlists desde la primera página
-        fetchPlaylists(0);
+                // Control de visibilidad de los botones de paginación
+                $('#previous-button').prop('disabled', currentPage === 1);
+                $('#next-button').prop('disabled', currentPage * itemsPerPage >= playlists.length);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                handleApiError(jqXHR.status);
+            },
+        });
     } else {
         alert('Please log in to Spotify.');
     }
 }
-
 
 
 // Función para mostrar un conjunto de playlists en la página actual
