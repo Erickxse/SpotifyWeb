@@ -126,6 +126,59 @@ function displayPlaylists(page) {
     });
 }
 
+function handlePlaylistClick(playlistIndex) {
+    // Ocultar o eliminar elementos innecesarios
+    $('.white-box').hide(); // Oculta el white box
+    $('#playlist-container').empty(); // Elimina el contenido de los contenedores de playlists
+
+    // Mostrar "PRIMERA RONDA"
+    const primeraRondaText = $('<p>PRIMERA RONDA</p>');
+    $('body').append(primeraRondaText);
+
+    // Mezclar las canciones
+    shuffleArray(canciones);
+
+    // Crear parejas para las rondas de VS
+    const parejas = [];
+    for (let i = 0; i < canciones.length; i += 2) {
+        const cancion1 = canciones[i];
+        const cancion2 = canciones[i + 1];
+        parejas.push([cancion1, cancion2]);
+    }
+
+    // Mostrar la primera pareja de canciones
+    const primeraPareja = parejas.shift();
+    mostrarPareja(primeraPareja);
+}
+
+// Función para mostrar una pareja de canciones
+function mostrarPareja(pareja) {
+    const cancion1 = pareja[0];
+    const cancion2 = pareja[1];
+
+    // Crea elementos HTML para mostrar las canciones
+    const divPareja = $('<div class="pareja">');
+    const divCancion1 = $('<div class="cancion">');
+    const divCancion2 = $('<div class="cancion">');
+
+    const cancion1Nombre = $('<p>' + cancion1.nombre + '</p>');
+    const cancion2Nombre = $('<p>' + cancion2.nombre + '</p>');
+
+    // Agrega las canciones a los divs correspondientes
+    divCancion1.append(cancion1Nombre);
+    divCancion2.append(cancion2Nombre);
+
+    // Agrega las canciones a la pareja
+    divPareja.append(divCancion1);
+    divPareja.append($('<p>VS</p>'));
+    divPareja.append(divCancion2);
+
+    // Agrega la pareja a la página
+    $('body').append(divPareja);
+}
+
+
+
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
     currentPage++;
