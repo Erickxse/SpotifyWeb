@@ -1,0 +1,49 @@
+/* rounds.css */
+
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Cambio a flex-direction: column */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Asegura que no haya m�rgenes en el body */
+    padding: 0;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+body::before {
+    content: "";
+    background-image: url("../pictures/RingBoxGround.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
+    z-index: -1; /* Colocar el pseudo-elemento detr�s del contenido */
+}
+
+footer {
+    /*background-color: white;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center; /* Alinear el contenido del pie de p�gina al centro */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-text {
+    color: darkslategray; /* Cambia el color de los textos del pie de p�gina */
+}
