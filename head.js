@@ -135,7 +135,6 @@ function displayPlaylists(page) {
 }
 
 
-
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
     currentPage++;
