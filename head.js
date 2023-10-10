@@ -82,6 +82,13 @@ function getPlaylists() {
                     } else {
                         // Cuando se hayan obtenido todas las playlists, muestra las primeras 8
                         playlists = allPlaylists; // Actualiza la lista de playlists
+                        
+                        // Asigna identificadores únicos temporales a las playlists
+                        playlists.forEach((playlist, index) => {
+                            playlist.id = 'playlist-' + index;
+                        });
+
+
                         displayPlaylists(currentPage);
                         // Control de visibilidad de los botones de paginación
                         $('#previous-button').prop('disabled', currentPage === 1);
@@ -111,20 +118,22 @@ function displayPlaylists(page) {
     // Limpia el contenedor de las playlists
     $('#playlist-container').empty();
 
-    // Genera el HTML para mostrar las playlists
+    // Genera el HTML para mostrar las playlists y los enlaces dinámicos
     pagePlaylists.forEach((item, i) => {
         let playlistName = item.name;
         let playlistUrl = item.external_urls.spotify;
         let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
 
         const playlistHtml = '<div class="column wide playlist item">' +
-            '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>' +
+            // Agrega un enlace dinámico con el identificador único de la playlist
+            '<a href="rounds.html?id=' + item.id + '"><img src="' + playlistImage + '"></a>' +
             '<h4>' + (startIndex + i + 1) + '. ' + playlistName + '</h4>' +
             '</div>';
 
         $('#playlist-container').append(playlistHtml);
     });
 }
+
 
 
 // Evento para avanzar a la siguiente página
