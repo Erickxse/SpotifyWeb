@@ -16,6 +16,12 @@
     crossorigin="anonymous"
     ></script>
     <script src="head.js"></script>
+    <script>
+        // Obtén el parámetro 'id' de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const playlistId = urlParams.get('id');
+        
+    </script>
 </head>
 
 <body>
@@ -23,18 +29,6 @@
 
     </header>
 
-    <div id="center-container">
-        <!-- Aquí se mostrará la canción aleatoria -->
-    </div>
-    <script>
-        // Obtiene el parámetro 'id' de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const playlistId = urlParams.get('id');
-        const access_token = '...'; // Reemplaza con tu token de autorización válido
-
-        // Llama a la función para obtener una canción aleatoria
-        obtenerCancionAleatoria(playlistId, access_token);
-    </script>
     <footer>
         <div class="footer-content">
             <p class="footer-text">Creado por: <a href="https://www.instagram.com/ericksebaxse/">ErickxSe</a> | SPBG 2023</p>
