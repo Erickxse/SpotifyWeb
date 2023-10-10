@@ -10,11 +10,6 @@
     <link rel="stylesheet" href="css/rounds.css"> <!-- Vincula tu archivo de estilos CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
     <script src="head.js"></script>
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-    crossorigin="anonymous"
-    ></script>
     <!-- Agrega tus estilos CSS si es necesario -->
     <script>
         // Obtén el parámetro 'id' de la URL
@@ -22,40 +17,17 @@
         const playlistId = urlParams.get('id');
         
     </script>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"
+    ></script>
 </head>
 
 <body>
     <header>      
 
     </header>
-    <div class = "song-content">
-        <script>
-            $.ajax({
-        url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-        headers: {
-            'Authorization': 'Bearer ' + access_token,
-        },
-        success: function(response) {
-            // Obtén una canción aleatoria de la lista de canciones
-            const randomTrack = response.items[Math.floor(Math.random() * response.items.length)];
-    
-            // Obtén el nombre de la canción y la URL de la imagen de la portada
-            const trackName = randomTrack.track.name;
-            const trackImage = randomTrack.track.album.images[0].url;
-    
-            // Inserta la imagen y el nombre de la canción en el centro de la página
-            $('#center-container').html(`
-                <img src="${trackImage}" alt="Portada de la canción">
-                <h2>${trackName}</h2>
-            `);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('Error al obtener las canciones de la playlist:', errorThrown);
-        },
-    });
-    
-        </script>
-    </div>
     
     <footer>
         <div class="footer-content">
