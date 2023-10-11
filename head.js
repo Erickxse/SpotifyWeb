@@ -183,3 +183,30 @@ function enableControls() {
 function disableControls() {
     $('#button-segment, #track-button, #artist-button, #timeForm, #numForm').addClass("disabled");
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Asumiendo que tienes una lista de playlists en "playlists" y el "playlistId" se ha obtenido
+    // Recupera la playlist específica
+    const selectedPlaylist = playlists.find(playlist => playlist.id === playlistId);
+
+    if (selectedPlaylist) {
+        // Obtiene la lista de canciones de la playlist (asumiendo que es un arreglo)
+        const playlistTracks = selectedPlaylist.tracks;
+
+        // Obtiene una canción aleatoria de la playlist
+        const randomIndex = Math.floor(Math.random() * playlistTracks.length);
+        const randomTrack = playlistTracks[randomIndex];
+
+        // Muestra la información de la canción en el centro de la página
+        const centerContent = document.querySelector('#center-content');
+        const trackTitle = document.createElement('h2');
+        trackTitle.textContent = randomTrack.name;
+        centerContent.appendChild(trackTitle);
+
+        const trackImage = document.createElement('img');
+        trackImage.src = randomTrack.image; // Asume que hay una propiedad "image" en el objeto de la canción
+        centerContent.appendChild(trackImage);
+    } else {
+        console.error('La playlist no se encontró o no se ha cargado correctamente.');
+    }
+});
