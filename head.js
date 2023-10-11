@@ -6,8 +6,6 @@ let time_range = 'short_term';
 let currentPage = 1; // Página actual
 const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
-const urlParams = new URLSearchParams(window.location.search);
-const playlistId = urlParams.get('id');
 
 
 // Authorization
@@ -145,7 +143,6 @@ function disableControls() {
     $('#button-segment, #track-button, #artist-button, #timeForm, #numForm').addClass("disabled");
 }
 
-
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
     currentPage++;
@@ -184,31 +181,5 @@ $(document).ready(function() {
         getUserId();
     } else {
         disableControls();
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Asumiendo que tienes una lista de playlists en "playlists" y el "playlistId" se ha obtenido
-    // Recupera la playlist específica
-    const selectedPlaylist = playlists.find(playlist => playlist.id === playlistId);
-
-    if (selectedPlaylist) {
-        // Obtiene la lista de canciones de la playlist (asumiendo que es un arreglo)
-        const playlistTracks = selectedPlaylist.tracks;
-
-        // Obtiene una canción aleatoria de la playlist
-        const randomIndex = Math.floor(Math.random() * playlistTracks.length);
-        const randomTrack = playlistTracks[randomIndex];
-
-        // Actualiza el título de la canción en el elemento con id "track-title"
-        const trackTitleElement = document.getElementById('track-title');
-        trackTitleElement.textContent = randomTrack.name;
-
-        // Actualiza la portada de la canción en el elemento con id "track-image"
-        const trackImageElement = document.getElementById('track-image');
-        trackImageElement.src = randomTrack.image; // Asume que hay una propiedad "image" en el objeto de la canción
-    } else {
-        console.error('La playlist no se encontró o no se ha cargado correctamente.');
     }
 });
