@@ -135,31 +135,34 @@ function displayPlaylists(page) {
 }
 
 function getPlaylistInfo(playlistId) {
-    const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}`;
+    if (access_token) {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/playlists/' + playlistId,
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            },
+            success: function(response) {
+                const playlistName = response.name;
+                const playlistImage = response.images[0].url;
 
-    // Agrega el token de autorización en los encabezados de la solicitud
-    const headers = {
-        'Authorization': 'Bearer ' + access_token
-    };
-
-    $.ajax({
-        url: apiUrl,
-        headers: headers,
-        success: function(response) {
-            // Accede a la URL de la imagen de portada y el nombre de la playlist
-            const coverUrl = response.images[0].url; // Suponiendo que la playlist tiene al menos una imagen de portada
-            const playlistName = response.name;
-
-            // Actualiza la imagen de portada y el nombre en el HTML
-            $('#playlist-cover').attr('src', coverUrl);
-            $('#playlist-name').text(playlistName);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Maneja los errores de la solicitud
-            console.error('Error al obtener información de la playlist:', errorThrown);
-        },
-    });
+                // Ahora puedes mostrar la información en el encabezado de rounds.html
+                displayPlaylistInfo(playlistName, playlistImage);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error al obtener información de la playlist:', errorThrown);
+            }
+        });
+    } else {
+        alert('Please log in to Spotify.');
+    }
 }
+
+function displayPlaylistInfo(playlistName, playlistImage) {
+    // Aquí, actualiza el encabezado en rounds.html con la información de la playlist
+    $('#playlist-name').text(playlistName);
+    $('#playlist-image').attr('src', playlistImage);
+}
+
 
 function enableControls() {
     $('#instructions, #login').css('display', 'none');
