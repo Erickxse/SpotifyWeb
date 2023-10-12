@@ -6,6 +6,8 @@ let time_range = 'short_term';
 let currentPage = 1; // Página actual
 const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
+const urlParams = new URLSearchParams(window.location.search);
+const playlistId = urlParams.get('id');
 
 
 // Authorization
