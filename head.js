@@ -6,8 +6,6 @@ let time_range = 'short_term';
 let currentPage = 1; // Página actual
 const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
-const urlParams = new URLSearchParams(window.location.search);
-const playlistId = urlParams.get('id');
 
 
 // Authorization
@@ -84,13 +82,6 @@ function getPlaylists() {
                     } else {
                         // Cuando se hayan obtenido todas las playlists, muestra las primeras 8
                         playlists = allPlaylists; // Actualiza la lista de playlists
-                        
-                        // Asigna identificadores únicos temporales a las playlists
-                        playlists.forEach((playlist, index) => {
-                            playlist.id = 'playlist-' + index;
-                        });
-
-
                         displayPlaylists(currentPage);
                         // Control de visibilidad de los botones de paginación
                         $('#previous-button').prop('disabled', currentPage === 1);
@@ -120,15 +111,14 @@ function displayPlaylists(page) {
     // Limpia el contenedor de las playlists
     $('#playlist-container').empty();
 
-    // Genera el HTML para mostrar las playlists y los enlaces dinámicos
+    // Genera el HTML para mostrar las playlists
     pagePlaylists.forEach((item, i) => {
         let playlistName = item.name;
         let playlistUrl = item.external_urls.spotify;
         let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
 
         const playlistHtml = '<div class="column wide playlist item">' +
-            // Agrega un enlace dinámico con el identificador único de la playlist
-            '<a href="rounds.html?id=' + item.id + '"><img src="' + playlistImage + '"></a>' +
+            '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>' +
             '<h4>' + (startIndex + i + 1) + '. ' + playlistName + '</h4>' +
             '</div>';
 
@@ -136,41 +126,6 @@ function displayPlaylists(page) {
     });
 }
 
-function getPlaylistInfo(playlistId) {
-    const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}`;
-
-    // Agrega el token de autorización en los encabezados de la solicitud
-    const headers = {
-        'Authorization': 'Bearer ' + access_token
-    };
-
-    $.ajax({
-        url: apiUrl,
-        headers: headers,
-        success: function(response) {
-            // Accede a la URL de la imagen de portada y el nombre de la playlist
-            const coverUrl = response.images[0].url; // Suponiendo que la playlist tiene al menos una imagen de portada
-            const playlistName = response.name;
-
-            // Actualiza la imagen de portada y el nombre en el HTML
-            $('#playlist-cover').attr('src', coverUrl);
-            $('#playlist-name').text(playlistName);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Maneja los errores de la solicitud
-            console.error('Error al obtener información de la playlist:', errorThrown);
-        },
-    });
-}
-
-function enableControls() {
-    $('#instructions, #login').css('display', 'none');
-    $('#button-segment, #timeForm, #numForm').removeClass("disabled");
-}
-
-function disableControls() {
-    $('#button-segment, #track-button, #artist-button, #timeForm, #numForm').addClass("disabled");
-}
 
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
@@ -212,3 +167,12 @@ $(document).ready(function() {
         disableControls();
     }
 });
+
+function enableControls() {
+    $('#instructions, #login').css('display', 'none');
+    $('#button-segment, #timeForm, #numForm').removeClass("disabled");
+}
+
+function disableControls() {
+    $('#button-segment, #track-button, #artist-button, #timeForm, #numForm').addClass("disabled");
+}
