@@ -6,8 +6,6 @@ let time_range = 'short_term';
 let currentPage = 1; // Página actual
 const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
-const urlParams = new URLSearchParams(window.location.search);
-const playlistId = urlParams.get('id');
 
 
 // Authorization
@@ -136,6 +134,33 @@ function displayPlaylists(page) {
     });
 }
 
+function getPlaylistInfo(playlistId) {
+    const apiUrl = `https://api.spotify.com/v1/playlists/${playlistId}`;
+
+    // Agrega el token de autorización en los encabezados de la solicitud
+    const headers = {
+        'Authorization': 'Bearer ' + access_token
+    };
+
+    $.ajax({
+        url: apiUrl,
+        headers: headers,
+        success: function(response) {
+            // Accede a la URL de la imagen de portada y el nombre de la playlist
+            const coverUrl = response.images[0].url; // Suponiendo que la playlist tiene al menos una imagen de portada
+            const playlistName = response.name;
+
+            // Actualiza la imagen de portada y el nombre en el HTML
+            $('#playlist-cover').attr('src', coverUrl);
+            $('#playlist-name').text(playlistName);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Maneja los errores de la solicitud
+            console.error('Error al obtener información de la playlist:', errorThrown);
+        },
+    });
+}
+
 function enableControls() {
     $('#instructions, #login').css('display', 'none');
     $('#button-segment, #timeForm, #numForm').removeClass("disabled");
@@ -183,5 +208,14 @@ $(document).ready(function() {
         getUserId();
     } else {
         disableControls();
+    }
+
+    // Obtén la ID de la playlist de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const playlistId = urlParams.get('id');
+
+    // Llama a la función para obtener la información de la playlist
+    if (playlistId) {
+        getPlaylistInfo(playlistId);
     }
 });
