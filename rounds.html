@@ -29,5 +29,15 @@
         </div>
     </footer>
     <script src="head.js"></script>
+    <script>
+        // En rounds.html, en el momento en que se carga la página
+        $(document).ready(function() {
+            // Recuperar la playlist seleccionada de localStorage
+            const selectedPlaylist = localStorage.getItem('selectedPlaylist');
+
+            // Ahora puedes usar 'selectedPlaylist' en tus funciones para obtener información adicional sobre la playlist, como canciones, etc.
+            // Puedes mostrar esta información en rounds.html según sea necesario.
+        });
+    </script>
 </body>
 </html>

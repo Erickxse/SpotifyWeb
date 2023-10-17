@@ -48,6 +48,19 @@
     </footer>
     <script src="head.js"></script>
     <script>
+        // En el evento de clic en una playlist en login.html
+        $('.playlist').on('click', function() {
+            // Obtener el nombre de la playlist seleccionada
+            const playlistName = $(this).find('h4').text();
+            
+            // Almacenar la playlist seleccionada en localStorage
+            localStorage.setItem('selectedPlaylist', playlistName);
+
+            // Redirigir a rounds.html
+            window.location.href = 'rounds.html';
+        });
+    </script>
+    <script>
         // Llama a la función getPlaylists() después de que el usuario se haya autenticado en index.html
         $(document).ready(function() {
             getPlaylists();
