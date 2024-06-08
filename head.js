@@ -126,6 +126,9 @@ function displayPlaylists(page) {
     });
 }
 
+function getOnePlaylist(){
+    
+}
 
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
