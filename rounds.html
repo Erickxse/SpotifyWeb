@@ -22,9 +22,12 @@
                 return;
             }
 
-            // Llama a la función para obtener las canciones de la playlist
             getPlaylistTracks(playlistId, accessToken);
         });
+
+        let allTracks = [];
+        let currentRoundTracks = [];
+        let currentRoundIndex = 0;
 
         function getPlaylistTracks(playlistId, accessToken) {
             $.ajax({
@@ -33,7 +36,8 @@
                     'Authorization': 'Bearer ' + accessToken
                 },
                 success: function(response) {
-                    displayTracks(response.items);
+                    allTracks = response.items;
+                    startNewRound();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error retrieving playlist tracks:', errorThrown);
@@ -41,19 +45,66 @@
             });
         }
 
-        function displayTracks(tracks) {
-            $('#tracks-container').empty();
-            tracks.forEach((track, i) => {
-                const trackHtml = '<div class="track">' +
-                    '<img src="' + (track.track.album.images[0] ? track.track.album.images[0].url : 'placeholder-url.jpg') + '">' +
-                    '<div class="track-info">' +
-                    '<h4>' + (i + 1) + '. ' + track.track.name + '</h4>' +
-                    '<p>' + track.track.artists.map(artist => artist.name).join(', ') + '</p>' +
-                    '</div>' +
-                    '</div>';
+        function startNewRound() {
+            if (allTracks.length <= 1) {
+                displayWinner(allTracks[0]);
+                return;
+            }
 
-                $('#tracks-container').append(trackHtml);
-            });
+            currentRoundTracks = [...allTracks];
+            currentRoundIndex = 0;
+            displayNextMatch();
+        }
+
+        function displayNextMatch() {
+            if (currentRoundIndex >= currentRoundTracks.length - 1) {
+                allTracks = currentRoundTracks.slice(0, currentRoundTracks.length / 2);
+                startNewRound();
+                return;
+            }
+
+            const track1 = currentRoundTracks[currentRoundIndex];
+            const track2 = currentRoundTracks[currentRoundIndex + 1];
+
+            $('#tracks-container').html(`
+                <div class="match">
+                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
+                        <img src="${track1.track.album.images[0].url}">
+                        <div class="track-info">
+                            <h4>${track1.track.name}</h4>
+                            <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
+                        </div>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
+                        <img src="${track2.track.album.images[0].url}">
+                        <div class="track-info">
+                            <h4>${track2.track.name}</h4>
+                            <p>${track2.track.artists.map(artist => artist.name).join(', ')}</p>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            currentRoundIndex += 2;
+        }
+
+        function selectWinner(winnerIndex, loserIndex) {
+            currentRoundTracks = currentRoundTracks.filter((track, index) => index !== loserIndex);
+            displayNextMatch();
+        }
+
+        function displayWinner(winner) {
+            $('#tracks-container').html(`
+                <div class="winner">
+                    <h2>Winner!</h2>
+                    <img src="${winner.track.album.images[0].url}">
+                    <div class="track-info">
+                        <h4>${winner.track.name}</h4>
+                        <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>
+                    </div>
+                </div>
+            `);
         }
     </script>
 </head>
