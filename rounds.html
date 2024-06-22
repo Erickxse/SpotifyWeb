@@ -4,21 +4,62 @@
     <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> SPBG | Rounds </title>
+    <title> SPBG | Playlist Rounds </title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon">
     <link rel="stylesheet" href="css/rounds.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playlistId = urlParams.get('playlist_id');
+            const accessToken = urlParams.get('access_token');
+
+            if (!playlistId || !accessToken) {
+                alert('Playlist ID or access token is missing.');
+                return;
+            }
+
+            // Llama a la función para obtener las canciones de la playlist
+            getPlaylistTracks(playlistId, accessToken);
+        });
+
+        function getPlaylistTracks(playlistId, accessToken) {
+            $.ajax({
+                url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                },
+                success: function(response) {
+                    displayTracks(response.items);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error retrieving playlist tracks:', errorThrown);
+                }
+            });
+        }
+
+        function displayTracks(tracks) {
+            $('#tracks-container').empty();
+            tracks.forEach((track, i) => {
+                const trackHtml = '<div class="track">' +
+                    '<img src="' + (track.track.album.images[0] ? track.track.album.images[0].url : 'placeholder-url.jpg') + '">' +
+                    '<div class="track-info">' +
+                    '<h4>' + (i + 1) + '. ' + track.track.name + '</h4>' +
+                    '<p>' + track.track.artists.map(artist => artist.name).join(', ') + '</p>' +
+                    '</div>' +
+                    '</div>';
+
+                $('#tracks-container').append(trackHtml);
+            });
+        }
+    </script>
 </head>
 <body>
-    <header>
-        <h1>PLAYLIST SONGS</h1>
-    </header>
-    <main>
-        <div id="songs-container" class="songs-container"></div>
-    </main>
+    <header></header>
+    <div id="tracks-container" class="tracks-container"></div>
     <footer>
         <div class="footer-content">
             <p class="footer-text">Creado por: <a href="https://www.instagram.com/ericksebaxse/">ErickxSe</a> | SPBG 2023</p>
@@ -26,11 +67,5 @@
             <img src="pictures/SpotifySmallLogoBlack.png" alt="Logo pequeño" style="width: 200px; height: 60px;">
         </div>
     </footer>
-    <script src="head.js"></script>
-    <script>
-        $(document).ready(function() {
-            getPlaylistSongs();
-        });
-    </script>
 </body>
 </html>

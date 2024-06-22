@@ -102,6 +102,9 @@ function getPlaylists() {
 }
 
 // Función para mostrar un conjunto de playlists en la página actual
+// head.js
+
+// Función para mostrar un conjunto de playlists en la página actual
 function displayPlaylists(page) {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -127,9 +130,10 @@ function displayPlaylists(page) {
     // Agrega el evento de clic a cada elemento de playlist
     $('.playlist.item').on('click', function() {
         const playlistId = $(this).data('id');
-        window.location.href = 'rounds.html?playlist_id=' + playlistId;
+        window.location.href = 'rounds.html?playlist_id=' + playlistId + '&access_token=' + access_token;
     });
 }
+
 
 // Evento para avanzar a la siguiente página
 $('#next-button').on('click', function() {
