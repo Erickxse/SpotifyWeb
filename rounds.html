@@ -13,99 +13,114 @@
     crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const playlistId = urlParams.get('playlist_id');
-            const accessToken = urlParams.get('access_token');
+    const urlParams = new URLSearchParams(window.location.search);
+    const playlistId = urlParams.get('playlist_id');
+    const accessToken = urlParams.get('access_token');
 
-            if (!playlistId || !accessToken) {
-                alert('Playlist ID or access token is missing.');
-                return;
-            }
+    if (!playlistId || !accessToken) {
+        alert('Playlist ID or access token is missing.');
+        return;
+    }
 
-            getPlaylistTracks(playlistId, accessToken);
-        });
+    getPlaylistTracks(playlistId, accessToken);
+});
 
-        let allTracks = [];
-        let currentRoundTracks = [];
-        let currentRoundIndex = 0;
+let allTracks = [];
+let currentRoundTracks = [];
+let currentRoundIndex = 0;
 
-        function getPlaylistTracks(playlistId, accessToken) {
-            $.ajax({
-                url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken
-                },
-                success: function(response) {
-                    allTracks = response.items;
-                    startNewRound();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error retrieving playlist tracks:', errorThrown);
-                }
-            });
+function getPlaylistTracks(playlistId, accessToken) {
+    $.ajax({
+        url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        },
+        success: function(response) {
+            allTracks = response.items;
+            startNewRound();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error retrieving playlist tracks:', errorThrown);
         }
+    });
+}
 
-        function startNewRound() {
-            if (allTracks.length <= 1) {
-                displayWinner(allTracks[0]);
-                return;
-            }
+function startNewRound() {
+    if (allTracks.length === 0) {
+        alert('No tracks available in this playlist.');
+        return;
+    }
+    if (allTracks.length === 1) {
+        displayWinner(allTracks[0]);
+        return;
+    }
 
-            currentRoundTracks = [...allTracks];
-            currentRoundIndex = 0;
-            displayNextMatch();
-        }
+    currentRoundTracks = [...allTracks];
+    currentRoundIndex = 0;
+    displayNextMatch();
+}
 
-        function displayNextMatch() {
-            if (currentRoundIndex >= currentRoundTracks.length - 1) {
-                allTracks = currentRoundTracks.slice(0, currentRoundTracks.length / 2);
-                startNewRound();
-                return;
-            }
+function displayNextMatch() {
+    if (currentRoundIndex >= currentRoundTracks.length - 1) {
+        allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0);
+        startNewRound();
+        return;
+    }
 
-            const track1 = currentRoundTracks[currentRoundIndex];
-            const track2 = currentRoundTracks[currentRoundIndex + 1];
+    const track1 = currentRoundTracks[currentRoundIndex];
+    const track2 = currentRoundTracks[currentRoundIndex + 1];
 
-            $('#tracks-container').html(`
-                <div class="match">
-                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
-                        <img src="${track1.track.album.images[0].url}">
-                        <div class="track-info">
-                            <h4>${track1.track.name}</h4>
-                            <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
-                        </div>
-                    </div>
-                    <div class="vs">VS</div>
-                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
-                        <img src="${track2.track.album.images[0].url}">
-                        <div class="track-info">
-                            <h4>${track2.track.name}</h4>
-                            <p>${track2.track.artists.map(artist => artist.name).join(', ')}</p>
-                        </div>
-                    </div>
+    if (!track1 || !track1.track || !track2 || !track2.track) {
+        console.error('Invalid track data', track1, track2);
+        return;
+    }
+
+    $('#tracks-container').html(`
+        <div class="match">
+            <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
+                <img src="${track1.track.album.images[0].url}">
+                <div class="track-info">
+                    <h4>${track1.track.name}</h4>
+                    <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
                 </div>
-            `);
-
-            currentRoundIndex += 2;
-        }
-
-        function selectWinner(winnerIndex, loserIndex) {
-            currentRoundTracks = currentRoundTracks.filter((track, index) => index !== loserIndex);
-            displayNextMatch();
-        }
-
-        function displayWinner(winner) {
-            $('#tracks-container').html(`
-                <div class="winner">
-                    <h2>Winner!</h2>
-                    <img src="${winner.track.album.images[0].url}">
-                    <div class="track-info">
-                        <h4>${winner.track.name}</h4>
-                        <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>
-                    </div>
+            </div>
+            <div class="vs">VS</div>
+            <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
+                <img src="${track2.track.album.images[0].url}">
+                <div class="track-info">
+                    <h4>${track2.track.name}</h4>
+                    <p>${track2.track.artists.map(artist => artist.name).join(', ')}</p>
                 </div>
-            `);
-        }
+            </div>
+        </div>
+    `);
+
+    currentRoundIndex += 2;
+}
+
+function selectWinner(winnerIndex, loserIndex) {
+    currentRoundTracks = currentRoundTracks.filter((_, index) => index !== loserIndex);
+    displayNextMatch();
+}
+
+function displayWinner(winner) {
+    if (!winner || !winner.track) {
+        console.error('Invalid winner data', winner);
+        return;
+    }
+
+    $('#tracks-container').html(`
+        <div class="winner">
+            <h2>Winner!</h2>
+            <img src="${winner.track.album.images[0].url}">
+            <div class="track-info">
+                <h4>${winner.track.name}</h4>
+                <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>
+            </div>
+        </div>
+    `);
+}
+
     </script>
 </head>
 <body>
