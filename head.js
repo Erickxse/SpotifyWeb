@@ -1,4 +1,5 @@
-// Initialize vars
+// head.js
+
 let access_token = null;
 let user_id = null;
 let playlistdisplayed = false;
@@ -6,7 +7,6 @@ let time_range = 'short_term';
 let currentPage = 1; // Página actual
 const itemsPerPage = 8; // Número de playlists por página
 let playlists = []; // Almacena todas las playlists del usuario
-
 
 // Authorization
 function authorize() {
@@ -101,7 +101,6 @@ function getPlaylists() {
     }
 }
 
-
 // Función para mostrar un conjunto de playlists en la página actual
 function displayPlaylists(page) {
     const startIndex = (page - 1) * itemsPerPage;
@@ -117,17 +116,19 @@ function displayPlaylists(page) {
         let playlistUrl = item.external_urls.spotify;
         let playlistImage = (item.images.length > 0) ? item.images[0].url : 'placeholder-url.jpg';
 
-        const playlistHtml = '<div class="column wide playlist item">' +
+        const playlistHtml = '<div class="column wide playlist item" data-id="' + item.id + '">' +
             '<a href="' + playlistUrl + '" target="_blank"><img src="' + playlistImage + '"></a>' +
             '<h4>' + (startIndex + i + 1) + '. ' + playlistName + '</h4>' +
             '</div>';
 
         $('#playlist-container').append(playlistHtml);
     });
-}
 
-function getOnePlaylist(){
-    
+    // Agrega el evento de clic a cada elemento de playlist
+    $('.playlist.item').on('click', function() {
+        const playlistId = $(this).data('id');
+        window.location.href = 'rounds.html?playlist_id=' + playlistId;
+    });
 }
 
 // Evento para avanzar a la siguiente página
@@ -149,8 +150,6 @@ $('#previous-button').on('click', function() {
     $('#previous-button').prop('disabled', currentPage === 1);
     $('#next-button').prop('disabled', false);
 });
-
-
 
 function handleApiError(error) {
     $('#playlist-button').removeClass("loading");
@@ -178,4 +177,39 @@ function enableControls() {
 
 function disableControls() {
     $('#button-segment, #track-button, #artist-button, #timeForm, #numForm').addClass("disabled");
+}
+
+function getPlaylistSongs() {
+    const playlistId = new URLSearchParams(window.location.search).get('playlist_id');
+
+    if (access_token && playlistId) {
+        $.ajax({
+            url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            },
+            success: function(response) {
+                displaySongs(response.items);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                handleApiError(jqXHR.status);
+            }
+        });
+    } else {
+        alert('Playlist ID or access token is missing.');
+    }
+}
+
+function displaySongs(tracks) {
+    $('#songs-container').empty();
+
+    tracks.forEach((item, i) => {
+        const track = item.track;
+        const songHtml = '<div class="song">' +
+            '<img src="' + (track.album.images[0] ? track.album.images[0].url : 'placeholder-url.jpg') + '" alt="Album Cover">' +
+            '<h4>' + (i + 1) + '. ' + track.name + ' - ' + track.artists.map(artist => artist.name).join(', ') + '</h4>' +
+            '</div>';
+
+        $('#songs-container').append(songHtml);
+    });
 }

@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>SPBG | Playlist Battle</title>
     <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SPBG | Rounds </title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/rounds.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
-    <script src="rounds.js"></script>
 </head>
 <body>
     <header>
-        <h1>SPOTIFY PLAYLIST BATTLEGROUND</h1>
+        <h1>PLAYLIST SONGS</h1>
     </header>
-
     <main>
-        <div class="battle-container">
-            <!-- Aquí se mostrarán las canciones en enfrentamiento -->
-            <div id="battle-area"></div>
-        </div>
+        <div id="songs-container" class="songs-container"></div>
     </main>
-
     <footer>
         <div class="footer-content">
             <p class="footer-text">Creado por: <a href="https://www.instagram.com/ericksebaxse/">ErickxSe</a> | SPBG 2023</p>
@@ -33,5 +26,11 @@
             <img src="pictures/SpotifySmallLogoBlack.png" alt="Logo pequeño" style="width: 200px; height: 60px;">
         </div>
     </footer>
+    <script src="head.js"></script>
+    <script>
+        $(document).ready(function() {
+            getPlaylistSongs();
+        });
+    </script>
 </body>
 </html>
