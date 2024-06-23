@@ -36,13 +36,20 @@
                     'Authorization': 'Bearer ' + accessToken
                 },
                 success: function(response) {
-                    allTracks = response.items;
+                    allTracks = response.items.filter(item => item.track); // Filtrar solo las canciones válidas
                     startNewRound();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error retrieving playlist tracks:', errorThrown);
                 }
             });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
 
         function startNewRound() {
@@ -55,15 +62,15 @@
                 return;
             }
 
-            currentRoundTracks = allTracks.filter(track => track !== undefined); // Filtrar las pistas undefined
+            currentRoundTracks = [...allTracks];
+            shuffleArray(currentRoundTracks); // Mezclar las canciones para la nueva ronda
             currentRoundIndex = 0;
             displayNextMatch();
         }
 
         function displayNextMatch() {
             if (currentRoundIndex >= currentRoundTracks.length - 1) {
-                // Filtrar las canciones ganadoras
-                allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0 || currentRoundTracks[index - 1] === undefined);
+                allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0);
                 startNewRound();
                 return;
             }
@@ -100,7 +107,7 @@
         }
 
         function selectWinner(winnerIndex, loserIndex) {
-            currentRoundTracks[loserIndex] = undefined; // Marcar la canción perdedora como undefined
+            currentRoundTracks = currentRoundTracks.filter((_, index) => index !== loserIndex);
             displayNextMatch();
         }
 
