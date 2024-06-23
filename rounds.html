@@ -55,7 +55,7 @@
                 return;
             }
 
-            currentRoundTracks = [...allTracks];
+            currentRoundTracks = allTracks.filter(track => track !== undefined); // Filtrar las pistas undefined
             currentRoundIndex = 0;
             displayNextMatch();
         }
@@ -121,7 +121,6 @@
                 </div>
             `);
         }
-
     </script>
 </head>
 <body>
