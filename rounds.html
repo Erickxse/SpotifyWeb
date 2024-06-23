@@ -28,6 +28,7 @@
         let allTracks = [];
         let currentRoundTracks = [];
         let currentRoundIndex = 0;
+        let audio = new Audio();
 
         function getPlaylistTracks(playlistId, accessToken) {
             $.ajax({
@@ -36,20 +37,13 @@
                     'Authorization': 'Bearer ' + accessToken
                 },
                 success: function(response) {
-                    allTracks = response.items.filter(item => item.track); // Filtrar solo las canciones válidas
+                    allTracks = response.items;
                     startNewRound();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error retrieving playlist tracks:', errorThrown);
                 }
             });
-        }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
         }
 
         function startNewRound() {
@@ -62,15 +56,15 @@
                 return;
             }
 
-            currentRoundTracks = [...allTracks];
-            shuffleArray(currentRoundTracks); // Mezclar las canciones para la nueva ronda
+            currentRoundTracks = allTracks.filter(track => track !== undefined); // Filtrar las pistas undefined
             currentRoundIndex = 0;
             displayNextMatch();
         }
 
         function displayNextMatch() {
             if (currentRoundIndex >= currentRoundTracks.length - 1) {
-                allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0);
+                // Filtrar las canciones ganadoras
+                allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0 || currentRoundTracks[index - 1] === undefined);
                 startNewRound();
                 return;
             }
@@ -85,7 +79,7 @@
 
             $('#tracks-container').html(`
                 <div class="match">
-                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
+                    <div class="track" onmouseover="playPreview('${track1.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
                         <img src="${track1.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track1.track.name}</h4>
@@ -93,7 +87,7 @@
                         </div>
                     </div>
                     <div class="vs">VS</div>
-                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
+                    <div class="track" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
                         <img src="${track2.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track2.track.name}</h4>
@@ -107,7 +101,7 @@
         }
 
         function selectWinner(winnerIndex, loserIndex) {
-            currentRoundTracks = currentRoundTracks.filter((_, index) => index !== loserIndex);
+            currentRoundTracks[loserIndex] = undefined; // Marcar la canción perdedora como undefined
             displayNextMatch();
         }
 
@@ -127,6 +121,17 @@
                     </div>
                 </div>
             `);
+        }
+
+        function playPreview(url) {
+            if (url) {
+                audio.src = url;
+                audio.play();
+            }
+        }
+
+        function stopPreview() {
+            audio.pause();
         }
     </script>
 </head>
