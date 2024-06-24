@@ -28,6 +28,7 @@
         let allTracks = [];
         let currentRoundTracks = [];
         let currentRoundIndex = 0;
+        let audioElement = null;
 
         function getPlaylistTracks(playlistId, accessToken) {
             $.ajax({
@@ -96,7 +97,7 @@
 
             $('#tracks-container').html(`
                 <div class="match">
-                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
+                    <div class="track" onmouseover="playPreview('${track1.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
                         <img src="${track1.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track1.track.name}</h4>
@@ -104,7 +105,7 @@
                         </div>
                     </div>
                     <div class="vs">VS</div>
-                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
+                    <div class="track" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
                         <img src="${track2.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track2.track.name}</h4>
@@ -115,6 +116,22 @@
             `);
 
             currentRoundIndex += 2;
+        }
+
+        function playPreview(previewUrl) {
+            if (previewUrl) {
+                if (audioElement) {
+                    audioElement.pause();
+                }
+                audioElement = new Audio(previewUrl);
+                audioElement.play();
+            }
+        }
+
+        function stopPreview() {
+            if (audioElement) {
+                audioElement.pause();
+            }
         }
 
         function selectWinner(winnerIndex, loserIndex) {
