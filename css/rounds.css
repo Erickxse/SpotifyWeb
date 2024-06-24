@@ -36,12 +36,14 @@ footer {
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .footer-text {
     color: darkslategray;
+    margin: 5px 0;
 }
 
 #tracks-container {
@@ -50,6 +52,7 @@ footer {
     align-items: center;
     justify-content: center;
     z-index: 1;
+    padding: 20px;
 }
 
 .match {
@@ -120,4 +123,54 @@ footer {
 #countdown-number {
     font-size: 72px;
     color: white;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .match {
+        flex-direction: column;
+    }
+
+    .track {
+        margin: 10px 0;
+    }
+
+    .vs {
+        margin: 10px 0;
+        font-size: 20px;
+    }
+
+    .track img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #winner img {
+        width: 150px;
+        height: 150px;
+    }
+
+    #countdown-number {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vs {
+        font-size: 16px;
+    }
+
+    .track img {
+        width: 100px;
+        height: 100px;
+    }
+
+    #winner img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #countdown-number {
+        font-size: 36px;
+    }
 }
