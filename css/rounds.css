@@ -96,8 +96,8 @@ footer {
 }
 
 #winner img {
-    width: 200px;
-    height: 200px;
+    width: 100px; /* Cambiado a 100px */
+    height: 100px; /* Cambiado a 100px */
     object-fit: cover;
     border-radius: 10px;
 }
@@ -146,8 +146,8 @@ footer {
     }
 
     #winner img {
-        width: 150px;
-        height: 150px;
+        width: 80px; /* Cambiado a 80px */
+        height: 80px; /* Cambiado a 80px */
     }
 
     #countdown-number {
@@ -166,8 +166,8 @@ footer {
     }
 
     #winner img {
-        width: 120px;
-        height: 120px;
+        width: 60px; /* Cambiado a 60px */
+        height: 60px; /* Cambiado a 60px */
     }
 
     #countdown-number {
