@@ -104,7 +104,7 @@
                             <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
                         </div>
                     </div>
-                    <div class="vs">VS</div>
+                    <div class="vs"><img src="pictures/vsLogo.png" alt="Logo VS" style="width: 200px; height: 60px;"></div>
                     <div class="track" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
                         <img src="${track2.track.album.images[0].url}">
                         <div class="track-info">
