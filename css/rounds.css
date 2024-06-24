@@ -1,13 +1,13 @@
 body {
     position: relative;
     display: flex;
-    flex-direction: column; /* Cambio a flex-direction: column */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0; /* Asegura que no haya márgenes en el body */
+    margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Evitar scroll horizontal */
+    overflow-x: hidden;
 }
 
 body::before {
@@ -21,74 +21,17 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.7; /* Ajustar la opacidad, puedes usar cualquier valor entre 0 y 1 */
-    z-index: -1; /* Colocar el pseudo-elemento detrás del contenido */
-}
-
-#tracks-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.match {
-    display: flex;
-    align-items: center;
-}
-
-.track {
-    margin: 0 20px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.track img {
-    width: 150px;
-    height: 150px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.track-info h4, .track-info p {
-    margin: 10px 0 0 0;
-    color: darkslategray;
-}
-
-.vs {
-    font-size: 24px;
-    font-weight: bold;
-    color: darkred;
-    margin: 0 20px;
-}
-
-.winner {
-    text-align: center;
-}
-
-.winner h2 {
-    color: darkgreen;
-    margin-bottom: 20px;
-}
-
-.winner img {
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    opacity: 0.7;
+    z-index: -1;
 }
 
 footer {
-    /*background-color: white;*/
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 20px 0;
-    text-align: center; /* Alinear el contenido del pie de página al centro */
+    text-align: center;
 }
 
 .footer-content {
@@ -98,5 +41,83 @@ footer {
 }
 
 .footer-text {
-    color: darkslategray; /* Cambia el color de los textos del pie de página */
+    color: darkslategray;
+}
+
+#tracks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.match {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.track {
+    cursor: pointer;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.track img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.track:hover img {
+    transform: scale(1.1);
+}
+
+.track-info {
+    margin-top: 10px;
+}
+
+.vs {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+    color: white;
+}
+
+#winner {
+    text-align: center;
+}
+
+#winner img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#winner .track-info {
+    margin-top: 10px;
+}
+
+#countdown-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#countdown-number {
+    font-size: 72px;
+    color: white;
 }

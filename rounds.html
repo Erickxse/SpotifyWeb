@@ -28,7 +28,6 @@
         let allTracks = [];
         let currentRoundTracks = [];
         let currentRoundIndex = 0;
-        let audio = new Audio();
 
         function getPlaylistTracks(playlistId, accessToken) {
             $.ajax({
@@ -38,12 +37,30 @@
                 },
                 success: function(response) {
                     allTracks = response.items;
-                    startNewRound();
+                    startCountdown();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error retrieving playlist tracks:', errorThrown);
                 }
             });
+        }
+
+        function startCountdown() {
+            $('#countdown-overlay').show();
+            let countdown = 5;
+            const interval = setInterval(function() {
+                if (countdown > 1) {
+                    $('#countdown-number').text(countdown - 1);
+                    countdown--;
+                } else if (countdown === 1) {
+                    $('#countdown-number').text('Fight!');
+                    countdown--;
+                } else {
+                    clearInterval(interval);
+                    $('#countdown-overlay').hide();
+                    startNewRound();
+                }
+            }, 1000);
         }
 
         function startNewRound() {
@@ -79,7 +96,7 @@
 
             $('#tracks-container').html(`
                 <div class="match">
-                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})" onmouseover="playPreview('${track1.track.preview_url}')" onmouseout="stopPreview()">
+                    <div class="track" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
                         <img src="${track1.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track1.track.name}</h4>
@@ -87,7 +104,7 @@
                         </div>
                     </div>
                     <div class="vs">VS</div>
-                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()">
+                    <div class="track" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
                         <img src="${track2.track.album.images[0].url}">
                         <div class="track-info">
                             <h4>${track2.track.name}</h4>
@@ -122,23 +139,14 @@
                 </div>
             `);
         }
-
-        function playPreview(previewUrl) {
-            if (previewUrl) {
-                audio.src = previewUrl;
-                audio.play();
-            }
-        }
-
-        function stopPreview() {
-            audio.pause();
-            audio.src = '';
-        }
     </script>
 </head>
 <body>
     <header></header>
     <div id="tracks-container" class="tracks-container"></div>
+    <div id="countdown-overlay">
+        <div id="countdown-number">5</div>
+    </div>
     <footer>
         <div class="footer-content">
             <p class="footer-text">Creado por: <a href="https://www.instagram.com/ericksebaxse/">ErickxSe</a> | SPBG 2023</p>
