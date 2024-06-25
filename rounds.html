@@ -148,8 +148,10 @@
             $('#tracks-container').html(`
                 <div class="winner">
                     <h2>Winner!</h2>
-                    <img class="crown" src="pictures/WinnerCrown.png" alt="Logo de corona" style="width: 90px; height: 90px;">
-                    <img class="ganador" src="${winner.track.album.images[0].url}">                   
+                    <section class="winn-container">
+                        <img class="crown" src="pictures/WinnerCrown.png" alt="Logo de corona" style="width: 120px; height: 120px;">
+                        <img class="ganador" src="${winner.track.album.images[0].url}">
+                    </section>                   
                     <div class="track-info">
                         <h4>${winner.track.name}</h4>
                         <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>

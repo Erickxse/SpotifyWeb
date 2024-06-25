@@ -106,9 +106,22 @@ footer {
     margin-top: 10px;
 }
 
+.winn-container{
+    position: relative;
+    display: inline-block;
+}
 .ganador{
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 150px;
+}
+
+.crown{
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
 }
 
 #countdown-overlay {
