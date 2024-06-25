@@ -148,7 +148,9 @@
             $('#tracks-container').html(`
                 <div class="winner">
                     <h2>Winner!</h2>
-                    <img src="${winner.track.album.images[0].url}">
+                    <section class="win-img">
+                        <img class="ganador" src="${winner.track.album.images[0].url}">
+                    </section>
                     <div class="track-info">
                         <h4>${winner.track.name}</h4>
                         <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>
