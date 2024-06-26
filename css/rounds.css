@@ -122,7 +122,7 @@ footer {
     width: 120px;
     height: 120px;
     position: absolute;
-    z-index: 10;
+    z-index: 80;
     top: 10px; 
     left: 50%; /* Centra horizontalmente */
     transform: translateX(-50%); /* Centra exactamente horizontalmente */
