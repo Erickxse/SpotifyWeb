@@ -112,8 +112,8 @@ footer {
 }
 .ganador {
     position: relative; /* Asegúrate de que el contenedor tenga posición relativa */
-    width: 500px;
-    height: 500px;
+    width: 100px;
+    height: 100px;
     overflow: hidden; /* Evita que la corona se salga del contenedor */
     display: inline-block;
 }
