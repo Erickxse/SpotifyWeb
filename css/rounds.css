@@ -67,6 +67,7 @@ footer {
     margin-bottom: 10px;
     position: relative;
     text-align: center;
+    top: -140px; /* Ajusta la posición vertical según necesites */
 }
 .track {
     cursor: pointer;
