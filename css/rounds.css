@@ -108,7 +108,7 @@ footer {
 
 .winn-container{
     position: relative;
-    display: inline-block;
+    
 }
 .ganador {
     position: relative; /* Asegúrate de que el contenedor tenga posición relativa */
