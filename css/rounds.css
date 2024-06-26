@@ -64,6 +64,7 @@ footer {
 .winner-text{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: red;
+    margin-bottom: 10px;
 }
 .track {
     cursor: pointer;
