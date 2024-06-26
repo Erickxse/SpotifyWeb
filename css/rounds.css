@@ -65,6 +65,8 @@ footer {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: red;
     margin-bottom: 10px;
+    position: relative;
+    text-align: center;
 }
 .track {
     cursor: pointer;
