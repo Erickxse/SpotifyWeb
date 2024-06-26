@@ -110,18 +110,22 @@ footer {
     position: relative;
     display: inline-block;
 }
-.ganador{
-    width: 150px;
-    height: 150px;
+.ganador {
+    position: relative; /* Asegúrate de que el contenedor tenga posición relativa */
+    width: 500px;
+    height: 500px;
+    overflow: hidden; /* Evita que la corona se salga del contenedor */
+    display: inline-block;
 }
 
-.crown{
+.crown {
     width: 120px;
     height: 120px;
     position: absolute;
     z-index: 10;
-    top: 0;
-    left: 0;
+    top: -10px; /* Ajusta la posición vertical según necesites */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Centra exactamente horizontalmente */
 }
 
 #countdown-overlay {
