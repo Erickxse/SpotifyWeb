@@ -4,13 +4,13 @@
     <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPBG | Playlist Rounds</title>
+    <title> SPBG | Playlist Rounds </title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon">
     <link rel="stylesheet" href="css/rounds.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -19,15 +19,10 @@
 
             if (!playlistId || !accessToken) {
                 alert('Playlist ID or access token is missing.');
-                window.location.href = 'login.html';
                 return;
             }
 
             getPlaylistTracks(playlistId, accessToken);
-
-            $('#back-button').on('click', function() {
-                window.location.href = `login.html?access_token=${accessToken}`;
-            });
         });
 
         let allTracks = [];
@@ -45,9 +40,8 @@
                     allTracks = response.items;
                     startCountdown();
                 },
-                error: function() {
-                    alert('Error retrieving playlist tracks.');
-                    window.location.href = 'login.html';
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error retrieving playlist tracks:', errorThrown);
                 }
             });
         }
@@ -80,13 +74,14 @@
                 return;
             }
 
-            currentRoundTracks = allTracks.filter(track => track !== undefined);
+            currentRoundTracks = allTracks.filter(track => track !== undefined); // Filtrar las pistas undefined
             currentRoundIndex = 0;
             displayNextMatch();
         }
 
         function displayNextMatch() {
             if (currentRoundIndex >= currentRoundTracks.length - 1) {
+                // Filtrar las canciones ganadoras
                 allTracks = currentRoundTracks.filter((_, index) => index % 2 === 0 || currentRoundTracks[index - 1] === undefined);
                 startNewRound();
                 return;
@@ -95,80 +90,84 @@
             const track1 = currentRoundTracks[currentRoundIndex];
             const track2 = currentRoundTracks[currentRoundIndex + 1];
 
-            $('#song-title-1').text(track1.track.name);
-            $('#artist-1').text(track1.track.artists.map(artist => artist.name).join(', '));
-            $('#album-cover-1').attr('src', track1.track.album.images[0].url);
-            $('#vote-button-1').off('click').on('click', function() {
-                playTrackPreview(track1);
-                currentRoundTracks[currentRoundIndex + 1] = undefined;
-                currentRoundIndex += 2;
-                setTimeout(displayNextMatch, 1000);
-            });
+            if (!track1 || !track1.track || !track2 || !track2.track) {
+                console.error('Invalid track data', track1, track2);
+                return;
+            }
 
-            $('#song-title-2').text(track2.track.name);
-            $('#artist-2').text(track2.track.artists.map(artist => artist.name).join(', '));
-            $('#album-cover-2').attr('src', track2.track.album.images[0].url);
-            $('#vote-button-2').off('click').on('click', function() {
-                playTrackPreview(track2);
-                currentRoundTracks[currentRoundIndex] = undefined;
-                currentRoundIndex += 2;
-                setTimeout(displayNextMatch, 1000);
-            });
+            $('#tracks-container').html(`
+                <div class="match">
+                    <div class="track" onmouseover="playPreview('${track1.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
+                        <img src="${track1.track.album.images[0].url}">
+                        <div class="track-info">
+                            <h4>${track1.track.name}</h4>
+                            <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
+                        </div>
+                    </div>
+                    <div class="vs"><img src="pictures/vsLogo.png" alt="Logo VS" style="width: 150px; height: 200px;"></div>
+                    <div class="track" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
+                        <img src="${track2.track.album.images[0].url}">
+                        <div class="track-info">
+                            <h4>${track2.track.name}</h4>
+                            <p>${track2.track.artists.map(artist => artist.name).join(', ')}</p>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            currentRoundIndex += 2;
         }
 
-        function playTrackPreview(track) {
+        function playPreview(previewUrl) {
+            if (previewUrl) {
+                if (audioElement) {
+                    audioElement.pause();
+                }
+                audioElement = new Audio(previewUrl);
+                audioElement.play();
+            }
+        }
+
+        function stopPreview() {
             if (audioElement) {
                 audioElement.pause();
             }
-            audioElement = new Audio(track.track.preview_url);
-            audioElement.play();
         }
 
-        function displayWinner(track) {
-            $('#winner-song-title').text(track.track.name);
-            $('#winner-artist').text(track.track.artists.map(artist => artist.name).join(', '));
-            $('#winner-album-cover').attr('src', track.track.album.images[0].url);
-            $('#winner-overlay').show();
+        function selectWinner(winnerIndex, loserIndex) {
+            currentRoundTracks[loserIndex] = undefined; // Marcar la canción perdedora como undefined
+            displayNextMatch();
+        }
+
+        function displayWinner(winner) {
+            if (!winner || !winner.track) {
+                console.error('Invalid winner data', winner);
+                return;
+            }
+
+            $('#tracks-container').html(`
+                <div class="winner">
+                    <section class="winner-text">
+                        <h2>Winner!</h2>
+                    </section>  
+                    <section class="winn-container">
+                        <img class="crown" src="pictures/WinnerCrown.png" alt="Logo de corona" style="width: 120px; height: 120px;">
+                        <img class="ganador" src="${winner.track.album.images[0].url}">
+                    </section>                   
+                    <div class="track-info">
+                        <h4>${winner.track.name}</h4>
+                        <p>${winner.track.artists.map(artist => artist.name).join(', ')}</p>
+                    </div>
+                </div>
+            `);
         }
     </script>
 </head>
 <body>
     <header></header>
-    <div class="black-box">
-        <img src="pictures/IconBoxGif2.gif" alt="GIF1" class="gif-left">
-        <h1>CHOOSE YOUR FAVORITE SONG</h1>
-        <img src="pictures/IconBoxGif2.gif" alt="GIF2" class="gif-right">
-    </div>
-    <div class="white-box">
-        <main>
-            <div id="match-container" class="match-container">
-                <div class="song-box">
-                    <img id="album-cover-1" src="" alt="Album Cover 1" class="album-cover">
-                    <div class="song-info">
-                        <h2 id="song-title-1"></h2>
-                        <p id="artist-1"></p>
-                    </div>
-                    <button id="vote-button-1" class="vote-button">Vote!</button>
-                </div>
-                <div class="song-box">
-                    <img id="album-cover-2" src="" alt="Album Cover 2" class="album-cover">
-                    <div class="song-info">
-                        <h2 id="song-title-2"></h2>
-                        <p id="artist-2"></p>
-                    </div>
-                    <button id="vote-button-2" class="vote-button">Vote!</button>
-                </div>
-            </div>
-        </main>
-        <button id="back-button" class="pagination-button">Regresar</button>
-    </div>
+    <div id="tracks-container" class="tracks-container"></div>
     <div id="countdown-overlay">
         <div id="countdown-number">5</div>
-    </div>
-    <div id="winner-overlay">
-        <h2 id="winner-song-title"></h2>
-        <p id="winner-artist"></p>
-        <img id="winner-album-cover" src="" alt="Album Cover" class="album-cover">
     </div>
     <footer>
         <div class="footer-content">
