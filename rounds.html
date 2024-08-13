@@ -161,6 +161,11 @@
                 </div>
             `);
         }
+
+        document.getElementById('back-button').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+
     </script>
 </head>
 <body>
@@ -169,6 +174,10 @@
     <div id="countdown-overlay">
         <div id="countdown-number">5</div>
     </div>
+    <div id="back-button-container">
+        <button id="back-button">Regresar</button>
+    </div>
+    
     <footer>
         <div class="footer-content">
             <p class="footer-text">Creado por: <a href="https://www.instagram.com/ericksebaxse/">ErickxSe</a> | SPBG 2023</p>
