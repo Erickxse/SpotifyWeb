@@ -4,7 +4,7 @@
     <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> SPBG | Playlist Rounds </title>
+    <title>SPBG | Playlist Rounds</title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon">
     <link rel="stylesheet" href="css/rounds.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
@@ -98,7 +98,7 @@
             $('#tracks-container').html(`
                 <div class="match">
                     <div class="track" onmouseover="playPreview('${track1.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex}, ${currentRoundIndex + 1})">
-                        <img src="${track1.track.album.images[0].url}">
+                        <img src="${track1.track.album.images.length > 0 ? track1.track.album.images[0].url : 'default_image_url'}">
                         <div class="track-info">
                             <h4>${track1.track.name}</h4>
                             <p>${track1.track.artists.map(artist => artist.name).join(', ')}</p>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="vs"><img src="pictures/vsLogo.png" alt="Logo VS" style="width: 150px; height: 200px;"></div>
                     <div class="track" onmouseover="playPreview('${track2.track.preview_url}')" onmouseout="stopPreview()" onclick="selectWinner(${currentRoundIndex + 1}, ${currentRoundIndex})">
-                        <img src="${track2.track.album.images[0].url}">
+                        <img src="${track2.track.album.images.length > 0 ? track2.track.album.images[0].url : 'default_image_url'}">
                         <div class="track-info">
                             <h4>${track2.track.name}</h4>
                             <p>${track2.track.artists.map(artist => artist.name).join(', ')}</p>
@@ -120,7 +120,7 @@
 
         function playPreview(previewUrl) {
             if (previewUrl) {
-                if (audioElement) {
+                if (audioElement && !audioElement.paused) {
                     audioElement.pause();
                 }
                 audioElement = new Audio(previewUrl);
@@ -152,7 +152,7 @@
                     </section>  
                     <section class="winn-container">
                         <img class="crown" src="pictures/WinnerCrown.png" alt="Logo de corona" style="width: 120px; height: 120px;">
-                        <img class="ganador" src="${winner.track.album.images[0].url}">
+                        <img class="ganador" src="${winner.track.album.images.length > 0 ? winner.track.album.images[0].url : 'default_image_url'}">
                     </section>                   
                     <div class="track-info">
                         <h4>${winner.track.name}</h4>
