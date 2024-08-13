@@ -23,6 +23,11 @@
             }
 
             getPlaylistTracks(playlistId, accessToken);
+
+            // Mover el event listener dentro de $(document).ready
+            $('#back-button').on('click', function() {
+                window.location.href = 'login.html';
+            });
         });
 
         let allTracks = [];
@@ -161,11 +166,6 @@
                 </div>
             `);
         }
-
-        document.getElementById('back-button').addEventListener('click', function() {
-            window.location.href = 'login.html';
-        });
-
     </script>
 </head>
 <body>
