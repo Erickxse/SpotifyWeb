@@ -4,54 +4,13 @@
     <meta name="author" content="ErickxSe">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPBG | Choose your Playlist</title>
+    <title> SPBG | Choose your Playlist </title>
     <link rel="icon" href="pictures/FaviconSPBG32px.png" type="image/x-icon">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            const accessToken = localStorage.getItem('access_token');
-            if (!accessToken) {
-                alert('Please log in to Spotify.');
-                window.location.href = 'index.html';
-                return;
-            }
-            getPlaylists(accessToken);
-        });
-
-        function getPlaylists(accessToken) {
-            $.ajax({
-                url: 'https://api.spotify.com/v1/me/playlists',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken
-                },
-                success: function(response) {
-                    displayPlaylists(response.items);
-                },
-                error: function() {
-                    alert('Failed to load playlists. Please log in again.');
-                    window.location.href = 'index.html';
-                }
-            });
-        }
-
-        function displayPlaylists(playlists) {
-            let container = $('#playlist-container');
-            container.empty();
-            playlists.forEach(playlist => {
-                let playlistDiv = $('<div>').addClass('playlist');
-                playlistDiv.text(playlist.name);
-                playlistDiv.on('click', function() {
-                    let playlistId = playlist.id;
-                    window.location.href = `rounds.html?playlist_id=${playlistId}&access_token=${localStorage.getItem('access_token')}`;
-                });
-                container.append(playlistDiv);
-            });
-        }
-    </script>
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
 </head>
 <body>
     <header></header>
@@ -76,5 +35,11 @@
             <img src="pictures/SpotifySmallLogoBlack.png" alt="Logo pequeño" style="width: 200px; height: 60px;">
         </div>
     </footer>
+    <script src="head.js"></script>
+    <script>
+        $(document).ready(function() {
+            getPlaylists();
+        });
+    </script>
 </body>
 </html>
