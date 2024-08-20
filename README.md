@@ -1,3 +1,3 @@
 # SpotifyWeb
  Spotify SPBG Web 
-patroncito('print')
+Technologies: HTML, CSS, Javascript
